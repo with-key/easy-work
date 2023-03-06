@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import React from "react";
 
 type Method = "POST" | "GET" | "PATCH" | "PUT" | "DELETE";
 type Handler = (req: NextApiRequest, res: NextApiResponse) => void;
