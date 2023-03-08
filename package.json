@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "con:db": "pscale connect easy-work",
+    "push:db": "npx prisma db push",
+    "view:db": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
