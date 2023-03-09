@@ -1,21 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import { styled } from "@styles/stitches.config";
 
+import { useCreateUser } from "@apis/hooks/auth/auth";
 import type { User } from "@typings/user/user.type";
-import { useMutation } from "@tanstack/react-query";
-import { apis } from "@apis/axios/instance";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [user, setUser] = useState<User>({
     email: "root@atnp.co.kr",
     password: "gsg9717**",
   });
 
-  const { mutate } = useMutation({
-    mutationFn: async (user: User) => {
-      await apis.post("/login", user);
-    },
-  });
+  const { mutate, isLoading, isSuccess, isIdle } = useCreateUser();
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,7 +19,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <div>로그인</div>
+      <div>회원가입</div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -43,13 +38,13 @@ const LoginPage = () => {
           name="password"
           onChange={changeHandler}
         />
-        <StyleButton>로그인</StyleButton>
+        <StyleButton>회원가입</StyleButton>
       </form>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
 
 const StyledInput = styled("input", {
   width: "100%",
