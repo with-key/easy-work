@@ -9,18 +9,74 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  phone    Int?     @unique
-  email    String?  @unique
-  password String
-  name     String
-  avatar   String?
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id            Int             @id @default(autoincrement())
+  phone         String?         @unique
+  email         String?         @unique
+  password      String
+  name          String
+  avatar        String?
+  joinDay       DateTime
+  createAt      DateTime        @default(now())
+  updateAt      DateTime        @updatedAt
+  Dayoff        Dayoff[]
+  SpecialDayoff SpecialDayoff[]
+}
+
+enum Status {
+  Pending
+  Approved
+  Rejected
+}
+
+enum DayoffCategory {
+  Full
+  AmHalf
+  PmHalf
+}
+
+enum DayoffType {
+  Published
+  Used
+  Gone
+  Passed
 }
 
 model Dayoff {
-  id       Int      @id @default(autoincrement())
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id        Int            @id @default(autoincrement())
+  createAt  DateTime       @default(now())
+  updateAt  DateTime       @updatedAt
+  count     Int // 차/증감 개수
+  startDate DateTime // 시작 일자
+  endDate   DateTime // 종료 일자
+  year      Int // 연도 
+  reason    String // 사유
+  type      DayoffType     @default(Used) // 생성 이유
+  category  DayoffCategory @default(Full) // 휴가 종류
+  status    Status         @default(Pending) // 상태
+  userId    Int // 작성자
+  user      User           @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+enum SpecialDayoffCategory {
+  Refresh
+  Apple
+  Mung
+  Summer
+}
+
+model SpecialDayoff {
+  id        Int                   @id @default(autoincrement())
+  createAt  DateTime              @default(now())
+  updateAt  DateTime              @updatedAt
+  startDate DateTime
+  endDate   DateTime
+  year      Int
+  category  SpecialDayoffCategory @default(Refresh)
+  status    Status                @default(Pending)
+  user      User                  @relation(fields: [userId], references: [id])
+  userId    Int
+
+  @@index([userId])
 }
