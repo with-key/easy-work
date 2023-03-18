@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "@libs/server/db";
 import withHandler from "@libs/server/withHandler";
 import { withApiSession } from "@libs/server/withSession";
+import * as bcrypt from "bcrypt";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body;
@@ -12,16 +13,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     },
   });
 
-  console.log(user);
-
   if (!user) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const createdUser = await db.user.create({
       data: {
         name: "Anonymous",
-        password,
+        password: hashedPassword,
         email,
       },
     });
+
+    console.log(createdUser);
 
     return res.status(201).json({
       ok: true,
