@@ -12,6 +12,7 @@
     "view:db": "npx prisma studio"
   },
   "dependencies": {
+    "@fxts/core": "^0.14.0",
     "@prisma/client": "^4.11.0",
     "@stitches/react": "^1.2.8",
     "@tanstack/react-query": "^4.26.0",
