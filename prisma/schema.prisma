@@ -45,7 +45,7 @@ model Dayoff {
   id        Int            @id @default(autoincrement())
   createAt  DateTime       @default(now())
   updateAt  DateTime       @updatedAt
-  count     Int // 차/증감 개수
+  days      Float // 차/증감 개수
   startDate DateTime // 시작 일자
   endDate   DateTime // 종료 일자
   year      Int // 연도 
