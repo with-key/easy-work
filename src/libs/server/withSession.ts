@@ -10,7 +10,7 @@ declare module "iron-session" {
 }
 
 const options = {
-  cookieName: "atnpeasyworksession",
+  cookieName: "session",
   password: process.env.SESSION_PASSWORD!,
 };
 
