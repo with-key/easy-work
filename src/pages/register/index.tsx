@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { styled } from "@styles/stitches.config";
 
-import { useCreateUser } from "@apis/hooks/auth/auth";
+import { useCreateUser } from "@apis/repositories/auth/auth";
 import type { User } from "@typings/user/user.type";
 
 const RegisterPage = () => {
