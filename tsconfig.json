@@ -22,6 +22,7 @@
       "@features/*": ["./src/features/*"],
       "@shared/*": ["./src/shared/*"],
       "@styles/*": ["./src/styles/*"],
+      "@server/*": ["./src/server/*"],
       "@assets/*": ["./src/assets/*"],
       "@typings/*": ["./src/typings/*"],
       "@libs/*": ["./src/libs/*"]
