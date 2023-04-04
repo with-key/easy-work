@@ -8,6 +8,12 @@ datasource db {
   relationMode = "prisma"
 }
 
+enum UserRoles {
+  Admin
+  User
+  Root
+}
+
 model User {
   id            Int             @id @default(autoincrement())
   phone         String?         @unique
@@ -15,6 +21,7 @@ model User {
   password      String
   name          String?
   avatar        String?
+  role          UserRoles       @default(User)
   joinDay       DateTime?
   createAt      DateTime        @default(now())
   updateAt      DateTime        @updatedAt
