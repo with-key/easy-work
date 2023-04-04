@@ -18,8 +18,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const isOkPassword = await bcrypt.compare(password, user.password);
 
     if (isOkPassword) {
+      // session을 생성하는 부분
       req.session.user = {
         id: user.id,
+        admin: user.role === "User" ? false : true,
       };
 
       await req.session.save();
