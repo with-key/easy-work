@@ -1,5 +1,7 @@
 import React, { ComponentPropsWithoutRef, ElementType } from "react";
-import { styled, PresetColorType, COLORS } from "@styles/stitches.config";
+import { styled, PresetColorType } from "@styles/stitches.config";
+import { colors } from "@styles/colors";
+import { typoes } from "@styles/typos";
 
 interface Props extends ComponentPropsWithoutRef<typeof TextImpl> {
   color?: PresetColorType;
@@ -13,7 +15,7 @@ const Text = ({ children, color, mb, mt, ...restProps }: Props) => {
     <TextImpl
       css={{
         ...restProps.css,
-        color: color ? COLORS[color] : "inherit",
+        color: color ? colors[color] : "inherit",
       }}
       {...restProps}
     >
@@ -25,6 +27,7 @@ const Text = ({ children, color, mb, mt, ...restProps }: Props) => {
 const TextImpl = styled("div", {
   letterSpacing: "-0.2px",
   variants: {
+    shape: typoes,
     underline: {
       true: {
         textDecoration: "underline",
