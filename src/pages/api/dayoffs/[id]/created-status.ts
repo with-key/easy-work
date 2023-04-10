@@ -17,14 +17,16 @@ const DayoffReportByUser = async (
   res: NextApiResponse
 ) => {
   const query = req.query as { year: string; id: string }; // query
-  const sessionUserId = req.session.user?.id; // 세션 아이디
-
   const year = +query.year;
   const userId = +query.id;
+
+  const sessionUserId = req.session.user?.id;
+  const isAdmin = req.session.user?.admin;
 
   try {
     if (!year) {
       const error = new Error();
+      5;
       throw Object.assign(error, {
         message: "400",
         cause: "사용할 수 없는 query",
@@ -32,7 +34,7 @@ const DayoffReportByUser = async (
     }
 
     /**
-     * @doc 특정 DayoffType의 days 합계를 산출한다.
+     * @doc 특정 유저의  DayoffType의 days 합계를 산출한다.
      *
      */
     const getDayoffSumEachType = ({
@@ -58,7 +60,7 @@ const DayoffReportByUser = async (
      */
     const getDayoffSumAllTypes = Object.keys(DayoffType).map(async (type) => {
       const daysCount = await getDayoffSumEachType({
-        userId,
+        userId: isAdmin ? userId : sessionUserId, // 관리자는 query.user.id를 사용하고 사용자는 session.user.id를 사용한다.
         type: type as DayoffCategoryUnion,
         year,
       });
