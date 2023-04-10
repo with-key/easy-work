@@ -4,27 +4,48 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "@libs/server/db";
 import { withApiSession } from "@libs/server/withSession";
 
-declare module "iron-session" {
-  interface IronSessionData {
-    user?: {
-      id: number;
-    };
-  }
-}
+// declare module "iron-session" {
+//   interface IronSessionData {
+//     user: {
+//       id: number;
+//       admin: boolean;
+//     };
+//   }
+// }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const profile = await db.user.findUnique({
-    where: {
-      id: req.session.user?.id,
-    },
-  });
+  const sessionUserId = req.session.user?.id;
 
-  res.status(200).json({
-    ok: true,
-    profile: {
-      name: profile?.name,
-    },
-  });
+  try {
+    // 세션으로 유저 조회
+    const user = await db.user.findUnique({
+      where: {
+        id: sessionUserId,
+      },
+      select: {
+        id: true,
+        name: true,
+        role: true,
+      },
+    });
+    return res.status(200).json({
+      ok: true,
+      profile: {
+        id: user?.id,
+        name: user?.name,
+        role: user?.role,
+      },
+    });
+  } catch (error) {
+    return res.status(400).json({
+      ok: false,
+    });
+  }
 };
 
-export default withApiSession(withHandler("GET", handler));
+export default withApiSession(
+  withHandler({
+    method: ["GET"],
+    handler,
+  })
+);
