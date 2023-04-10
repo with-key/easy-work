@@ -87,3 +87,13 @@ model SpecialDayoff {
 
   @@index([userId])
 }
+
+model Holiday {
+  id        Int      @id @default(autoincrement())
+  dateKind  String // 공휴일 종류
+  dateName  String // 공휴일 이름
+  isHoliday Boolean // 공휴일 여부
+  year      String // 연도
+  month     String // 월
+  date      DateTime @unique // 휴가 일자 
+}
