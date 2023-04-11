@@ -4,8 +4,10 @@ import { HStack } from "@components/Stack";
 import { BaseButtonImple } from "@components/core/button/index";
 import { Primary } from "@components/template/button";
 import { Space } from "@components/Space";
+import { useRouter } from "next/router";
 
 const MyDayoffInfo = () => {
+  const router = useRouter();
   return (
     <div>
       <Space css={{ rmb: 25 }}>
@@ -25,7 +27,7 @@ const MyDayoffInfo = () => {
         <BaseButtonImple
           asChild
           onClick={() => {
-            console.log("hello world!");
+            return router.push("dayoff/add");
           }}
         >
           <Primary shape="smallShort">연차쓰기</Primary>
