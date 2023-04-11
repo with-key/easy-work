@@ -1,10 +1,11 @@
 import { styled } from "@styles/stitches.config";
+import { typoes } from "@styles/typos";
 
 /**
  * @doc 공통 스타일 버튼
  *
  */
-export const BaseButton = styled("button", {
+const BaseButton = styled("button", {
   borderRadius: 10,
   display: "flex",
   ai: "center",
@@ -12,6 +13,12 @@ export const BaseButton = styled("button", {
 
   variants: {
     shape: {
+      large: {
+        height: 52,
+        width: "100%",
+        ...typoes.T17_700,
+      },
+
       smallLong: {
         height: 40,
         width: 130,
@@ -33,6 +40,6 @@ export const BaseButton = styled("button", {
  *
  */
 export const Primary = styled(BaseButton, {
-  bc: "$blue200",
-  color: "$blue500",
+  bc: "$blue500",
+  color: "white",
 });
