@@ -1,15 +1,15 @@
-import React, { ComponentPropsWithoutRef } from "react";
+import { Status } from "@prisma/client";
 import { styled } from "@styles/stitches.config";
 
-interface Props extends ComponentPropsWithoutRef<typeof Container> {}
-
-const Tag = ({ children, ...restProps }: Props) => {
-  return <Container {...restProps}>{children}</Container>;
+export const selectThemeDayoffStatus = (status: Status) => {
+  return status === "Approved"
+    ? "positive"
+    : status === "Pending"
+    ? "idle"
+    : "negative";
 };
 
-export default Tag;
-
-const Container = styled("div", {
+export const StyledTag = styled("div", {
   display: "inline-flex",
   ai: "center",
   jc: "center",

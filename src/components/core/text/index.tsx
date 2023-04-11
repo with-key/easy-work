@@ -8,14 +8,18 @@ interface Props extends ComponentPropsWithoutRef<typeof TextImpl> {
   as?: ElementType;
   mt?: number;
   mb?: number;
+  align?: "leff" | "center" | "right";
 }
 
-const Text = ({ children, color, mb, mt, ...restProps }: Props) => {
+const Text = ({ children, color, mb, mt, align, ...restProps }: Props) => {
   return (
     <TextImpl
       css={{
-        ...restProps.css,
+        textAlign: align,
         color: color ? colors[color] : "inherit",
+        rmb: mb,
+        rmt: mt,
+        ...restProps.css,
       }}
       {...restProps}
     >

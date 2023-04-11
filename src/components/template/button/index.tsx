@@ -43,3 +43,43 @@ export const Primary = styled(BaseButton, {
   bc: "$blue500",
   color: "white",
 });
+
+export const DialogButton = styled("button", {
+  ...typoes.T17_700,
+  height: 54,
+
+  bc: "$blue500",
+  color: "white",
+
+  variants: {
+    dir: {
+      left: {
+        borderRadius: "0 0 0 20px",
+      },
+      right: {
+        borderRadius: "0 0 20px 0",
+      },
+    },
+
+    size: {
+      half: {
+        width: 158,
+      },
+      full: {
+        width: 316,
+        borderRadius: "0 0 20px 20px",
+      },
+    },
+
+    negative: {
+      true: {
+        bc: "$gary06",
+        color: "white",
+      },
+    },
+  },
+
+  defaultVariants: {
+    size: "half",
+  },
+});

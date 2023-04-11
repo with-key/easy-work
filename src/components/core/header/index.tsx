@@ -15,7 +15,7 @@ export const Title = () => {
 };
 
 interface SlotProps extends PropsWithChildren {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const LeftSlot = ({ children, onClick }: SlotProps) => {
