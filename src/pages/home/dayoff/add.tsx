@@ -16,7 +16,7 @@ import { PrimarySelect } from "@components/template/select";
 
 import { DayoffCategory } from "@prisma/client";
 import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
-import { useGoDayoff } from "@apis/repositories/dayoff/usegoDayoff";
+import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
 
 const DayoffAddPage = () => {
   const useDayoff = useGoDayoff();
