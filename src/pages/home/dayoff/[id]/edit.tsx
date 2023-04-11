@@ -11,18 +11,18 @@ import * as Input from "@components/core/input";
 import * as Select from "@components/core/select";
 
 import { BaseInput } from "@components/template/input";
-import * as ButtonStyle from "@components/template/button";
+// import * as ButtonStyle from "@components/template/button";
 import { PrimarySelect } from "@components/template/select";
 
 import { DayoffCategory } from "@prisma/client";
 import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
 import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
-import { useRouter } from "next/router";
+import { useAppRouter } from "@hooks/useAppRouter";
 import { StyledButtons } from "@components/template/button";
 import { ButtonImpl } from "@components/core/button";
 
-const DayoffAddPage = () => {
-  const router = useRouter();
+const DayoffEditPage = () => {
+  const router = useAppRouter();
 
   const useDayoff = useGoDayoff();
   const [dayoff, setDayoff] = useState<CreateDayoffPayload>({
@@ -51,7 +51,7 @@ const DayoffAddPage = () => {
       <Header.Root>
         <Header.LeftSlot
           onClick={() => {
-            return router.push(".");
+            return router.goUpPath();
           }}
         >
           닫기
@@ -65,7 +65,7 @@ const DayoffAddPage = () => {
             rmb: 25,
           }}
         >
-          <Text shape="T26_800">연차쓰기</Text>
+          <Text shape="T26_800">연차수정</Text>
         </Space>
 
         <VStack css={{ gap: 30 }}>
@@ -152,7 +152,7 @@ const DayoffAddPage = () => {
           >
             <ButtonImpl asChild onClick={() => submitDayoffHandler(dayoff)}>
               <StyledButtons.Primary shape="large">
-                연차 신청
+                수정하기
               </StyledButtons.Primary>
             </ButtonImpl>
           </Space>
@@ -162,7 +162,7 @@ const DayoffAddPage = () => {
   );
 };
 
-export default DayoffAddPage;
+export default DayoffEditPage;
 
 const Container = styled("div", {
   minHeight: "calc(100vh - 60px)",
