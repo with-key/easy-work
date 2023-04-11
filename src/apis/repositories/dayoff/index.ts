@@ -6,7 +6,7 @@ const fetchDayoffList = async (): Promise<{
   dayoffList: Dayoff[];
   ok: boolean;
 }> => {
-  const { data } = await axios.get("/api/dayoff");
+  const { data } = await axios.get("/api/dayoffs");
   return data;
 };
 

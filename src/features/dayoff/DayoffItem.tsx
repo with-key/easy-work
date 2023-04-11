@@ -2,11 +2,11 @@ import React, { PropsWithChildren } from "react";
 
 import { HStack } from "@components/Stack";
 import Tag from "@components/Tag";
-import { styled } from "@stitches/react";
 import { Dayoff } from "@prisma/client";
 
 import { formattedDate } from "@libs/client/date";
 import { genDayoffCatrgory, genDayoffStatus } from "@libs/client/convertValue";
+import { styled } from "@styles/stitches.config";
 
 interface Props extends PropsWithChildren {
   dayoff: Dayoff;

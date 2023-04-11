@@ -8,13 +8,19 @@ interface MyRequestBody {
   email: string;
 }
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+/**
+ * 관리자의 휴가 생성
+ * - 새로운 휴가를 생성
+ * - 소멸, 이월로 인한 휴가 소거
+ */
+
+const useDayoff = async (req: NextApiRequest, res: NextApiResponse) => {
   const isAdming = req.session;
   const userId = req.session.user?.id;
 
   /**
    * 휴가 내역 생성
-   *
+   * valia=
    */
 
   return res.status(200).json({});
@@ -23,6 +29,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 export default withApiSession(
   withHandler({
     method: ["POST", "GET"],
-    handler,
+    handler: useDayoff,
   })
 );

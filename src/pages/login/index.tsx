@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const { mutate } = useMutation({
     mutationFn: async (user: User) => {
-      await apis.post("/login", user);
+      await apis.post("/auth/login", user);
     },
   });
 
