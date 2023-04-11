@@ -39,7 +39,7 @@ const BaseButton = styled("button", {
  * @doc Primary 스타일 버튼
  *
  */
-export const Primary = styled(BaseButton, {
+export const PrimaryButton = styled(BaseButton, {
   bc: "$blue500",
   color: "white",
 });
@@ -82,4 +82,8 @@ export const DialogButton = styled("button", {
   defaultVariants: {
     size: "half",
   },
+});
+
+export const UnsetButton = styled("button", {
+  all: "unset",
 });
