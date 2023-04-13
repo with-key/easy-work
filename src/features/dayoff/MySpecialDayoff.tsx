@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
 import Text from "@components/core/text";
-import { HStack, VStack } from "@components/Stack";
-import { BaseButtonImple } from "@components/core/button/index";
-import { Primary } from "@components/template/button";
-import { Space } from "@components/Space";
+import { HStack, VStack } from "@components/core/stack";
+import { ButtonImpl } from "@components/core/button/index";
+import { Space } from "@components/core/space";
 import { styled } from "@styles/stitches.config";
 
 const dayoffs = [

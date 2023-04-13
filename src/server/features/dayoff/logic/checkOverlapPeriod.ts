@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 dayjs.extend(isSameOrBefore);
 
-import * as dayoffRepository from "../repositories";
+import * as dayoffRepository from "../repositories/dayoffs.repository";
 
 type CheckOverlapPeriod = {
   startDate: Date;

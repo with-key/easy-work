@@ -3,44 +3,41 @@ import dayjs from "dayjs";
 import { Dayoff } from "@prisma/client";
 
 import { formattedDate } from "@libs/client/date";
-import { genDayoffCatrgory, genDayoffStatus } from "@libs/client/convertValue";
+// import { genDayoffCatrgory } from "@libs/client/convertValue";
 
-import Tag from "@components/Tag";
+import Tag from "@components/core/tag";
 import Text from "@components/core/text";
-import { HStack } from "@components/Stack";
-import { Space } from "@components/Space";
-import Divider from "@components/core/divider";
+import { HStack } from "@components/core/stack";
+import { Space } from "@components/core/space";
 import { styled } from "@styles/stitches.config";
+import { useRouter } from "next/router";
 
 interface Props extends PropsWithChildren {
   dayoff: Dayoff;
 }
 
 const DayoffItem = ({ dayoff }: Props) => {
+  const router = useRouter();
+
   const { category, status, startDate, endDate, days, createAt } = dayoff;
   const CreateDate = dayjs(createAt).format("M.DD");
 
   return (
-    <HStack css={{ gap: 15 }}>
+    <HStack
+      css={{ gap: 15 }}
+      onClick={() => {
+        return router.push(`dayoff/${dayoff.id}`);
+      }}
+    >
       <Space css={{ rpy: 12 }}>
         <Text shape="T14_400">{CreateDate}</Text>
       </Space>
       <Space
         css={{ borderBottom: "$gary04 1px solid", rpy: 12, width: "100%" }}
       >
-        <HStack css={{ gap: 4 }}>
-          <Text shape="T15_600">{genDayoffCatrgory(category)}</Text>
-          <Tag
-            theme={
-              status === "Approved"
-                ? "positive"
-                : status === "Pending"
-                ? "idle"
-                : "negative"
-            }
-          >
-            {genDayoffStatus(status)}
-          </Tag>
+        <HStack css={{ gap: 4, ai: "center" }}>
+          <Text shape="T15_600">{category}</Text>
+          <Tag status={status} />
         </HStack>
         <HStack css={{ gap: 8, ai: "center" }}>
           <Text shape="T13_400">

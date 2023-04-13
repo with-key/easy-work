@@ -36,13 +36,33 @@ const BaseButton = styled("button", {
 });
 
 /**
- * @doc Primary 스타일 버튼
+ * Basic Styled Buttons
  *
  */
-export const PrimaryButton = styled(BaseButton, {
+const Primary = styled(BaseButton, {
   bc: "$blue500",
   color: "white",
 });
+
+const Secondary = styled(BaseButton, {
+  bc: "$blue200",
+  color: "$blue500",
+});
+
+const Unset = styled("button", {
+  all: "unset",
+});
+
+export const StyledButtons = {
+  Primary,
+  Secondary,
+  Unset,
+};
+
+/**
+ * Dialog Styled Button
+ *
+ */
 
 export const DialogButton = styled("button", {
   ...typoes.T17_700,
@@ -82,8 +102,4 @@ export const DialogButton = styled("button", {
   defaultVariants: {
     size: "half",
   },
-});
-
-export const UnsetButton = styled("button", {
-  all: "unset",
 });

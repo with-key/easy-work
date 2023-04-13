@@ -25,6 +25,7 @@
       "@styles/*": ["./src/styles/*"],
       "@server/*": ["./src/server/*"],
       "@assets/*": ["./src/assets/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@typings/*": ["./src/typings/*"],
       "@libs/*": ["./src/libs/*"]
     }

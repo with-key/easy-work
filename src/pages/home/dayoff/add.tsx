@@ -1,35 +1,44 @@
 import React, { ChangeEvent, useState } from "react";
 import { styled } from "@styles/stitches.config";
+import { useRouter } from "next/router";
 import dayjs from "dayjs";
-
-import { HStack, VStack } from "@components/core/stack";
-import { Space } from "@components/core/space";
 
 import Text from "@components/core/text";
 import * as Header from "@components/core/header";
 import * as Input from "@components/core/input";
 import * as Select from "@components/core/select";
+import { HStack, VStack } from "@components/core/stack";
+import { Space } from "@components/core/space";
 
 import { BaseInput } from "@components/template/input";
-import * as ButtonStyle from "@components/template/button";
 import { PrimarySelect } from "@components/template/select";
 
 import { DayoffCategory } from "@prisma/client";
-import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
 import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
-import { useRouter } from "next/router";
 import { StyledButtons } from "@components/template/button";
 import { ButtonImpl } from "@components/core/button";
 
-const DayoffAddPage = () => {
-  const router = useRouter();
+// services
+import { useCalculateDayoffService } from "@apis/services/calculateDayoff.service";
 
+// type
+import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
+
+const DayoffAddPage = () => {
+  // Service
+  const router = useRouter();
   const useDayoff = useGoDayoff();
+
   const [dayoff, setDayoff] = useState<CreateDayoffPayload>({
     category: "Full",
-    startDate: new Date("2023-04-08"),
-    endDate: new Date("2023-04-10"),
+    startDate: new Date(),
+    endDate: new Date(),
     reason: "개인사유",
+  });
+
+  const { dayoffStatus, dayoffStatusIsLoading } = useCalculateDayoffService({
+    startDate: dayjs(dayoff.startDate).format("YYYY-MM-DD"),
+    endDate: dayjs(dayoff.endDate).format("YYYY-MM-DD"),
   });
 
   const chanegeDayoffCategoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -40,6 +49,11 @@ const DayoffAddPage = () => {
   const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setDayoff((pre) => ({ ...pre, [name]: value }));
+  };
+
+  const chagneEndDateHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setDayoff((pre) => ({ ...pre, endDate: new Date(value) }));
   };
 
   const submitDayoffHandler = (payload: CreateDayoffPayload) => {
@@ -107,7 +121,7 @@ const DayoffAddPage = () => {
               type="date"
               name="endDate"
               value={dayjs(dayoff.endDate).format("YYYY-MM-DD")}
-              onChange={changeInputHandler}
+              onChange={chagneEndDateHandler}
             >
               <BaseInput />
             </Input.Date>
@@ -129,13 +143,13 @@ const DayoffAddPage = () => {
         <CurrentStatus>
           <HStack css={{ jc: "space-between", rmb: 6 }}>
             <Text shape="T14_600">보유연차</Text>
-            <Text shape="T14_600">8.5일</Text>
+            <Text shape="T14_600">{dayoffStatus?.hasDays}</Text>
           </HStack>
 
           <HStack css={{ jc: "space-between", rmb: 6 }}>
             <Text shape="T14_600">차감연차</Text>
             <Text shape="T14_600" color="red500">
-              -1일
+              {dayoffStatus?.count}
             </Text>
           </HStack>
           <Divider />

@@ -5,9 +5,9 @@ import { styled } from "@styles/stitches.config";
 import Text from "@components/core/text";
 import * as Alert from "@components/template/alert";
 
-import { HStack } from "@components/Stack";
-import { Space } from "@components/Space";
-import { Button } from "@components/core/button";
+import { HStack } from "@components/core/stack";
+import { Space } from "@components/core/space";
+import { ButtonImpl } from "@components/core/button";
 import { DialogButton } from "@components/template/button";
 
 const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
@@ -73,20 +73,20 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                     </StyledContent>
                     <HStack>
                       <Alert.Cancel asChild>
-                        <Button asChild>
+                        <ButtonImpl asChild>
                           <DialogButton dir="left" negative>
                             아니오
                           </DialogButton>
-                        </Button>
+                        </ButtonImpl>
                       </Alert.Cancel>
-                      <Button
+                      <ButtonImpl
                         asChild
                         onClick={() => {
                           mutate();
                         }}
                       >
                         <DialogButton dir="right">휴가 취소</DialogButton>
-                      </Button>
+                      </ButtonImpl>
                     </HStack>
                   </>
                 );
@@ -105,9 +105,9 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                         return reset();
                       }}
                     >
-                      <Button asChild>
+                      <ButtonImpl asChild>
                         <DialogButton size="full">확인</DialogButton>
-                      </Button>
+                      </ButtonImpl>
                     </Alert.Cancel>
                   </>
                 );

@@ -10,7 +10,7 @@ import { checkOverlapPeriod } from "../logic/checkOverlapPeriod";
 import { calculateDays } from "../logic/calculateDays";
 import { GoDayoffBody, GoDayoffInputDto } from "../dtos/goDayoff";
 
-import * as dayoffRepository from "../repositories";
+import * as dayoffRepository from "../repositories/dayoffs.repository";
 
 export const goDayoffService = async (
   req: NextApiRequest,

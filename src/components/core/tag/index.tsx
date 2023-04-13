@@ -1,29 +1,14 @@
-import React, { ComponentPropsWithoutRef } from "react";
+import React, { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 import { Status } from "@prisma/client";
 import { styled } from "@styles/stitches.config";
 
 type Props = {
   status: Status;
-};
+} & PropsWithChildren;
 
-const Tag = ({ status }: Props) => {
-  return (
-    <StyledTag theme={themeBuilder(status)}>{labelBuilder(status)}</StyledTag>
-  );
+const Tag = ({ status, children }: Props) => {
+  return <StyledTag theme={themeBuilder(status)}>{children}</StyledTag>;
 };
-
-function labelBuilder(value: Status) {
-  switch (value) {
-    case "Approved":
-      return "승인";
-    case "Pending":
-      return "대기";
-    case "Rejected":
-      return "반려";
-    default:
-      break;
-  }
-}
 
 function themeBuilder(status: Status) {
   return status === "Approved"

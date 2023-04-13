@@ -6,10 +6,10 @@ import DayoffItem from "./DayoffItem";
 import { useGetDayoffs } from "@apis/repositories/dayoff/useGetDayoffs";
 
 import Text from "@components/core/text";
-import { HStack } from "@components/Stack";
+import { HStack } from "@components/core/stack";
 import * as Select from "@components/core/select";
 import { styled } from "@styles/stitches.config";
-import { Space } from "@components/Space";
+import { Space } from "@components/core/space";
 import { typoes } from "@styles/typos";
 
 const DayoffList = () => {

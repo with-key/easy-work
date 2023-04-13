@@ -13,6 +13,10 @@ declare module "iron-session" {
 const options = {
   cookieName: "session",
   password: process.env.SESSION_PASSWORD!,
+  cookieOptions: {
+    secure: true,
+    sameSite: "none" as const,
+  },
 };
 
 export const withApiSession = (

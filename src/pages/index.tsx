@@ -1,7 +1,8 @@
-import React from "react";
+import { ButtonImpl } from "@components/core/button";
+import { StyledButtons } from "@components/template/button";
+import { styled } from "@styles/stitches.config";
+import React, { PropsWithChildren } from "react";
 
-const Home = () => {
-  return <div>index</div>;
-};
+const Home = () => {};
 
 export default Home;

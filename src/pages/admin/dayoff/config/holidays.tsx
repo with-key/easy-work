@@ -1,6 +1,6 @@
 import React from "react";
 import * as Header from "@components/core/header";
-import { Space } from "@components/Space";
+import { Space } from "@components/core/space";
 import Text from "@components/core/text";
 import { styled } from "@styles/stitches.config";
 

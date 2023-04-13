@@ -2,8 +2,26 @@ import withHandler from "@libs/server/withHandler";
 import { withApiSession } from "@libs/server/withSession";
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "@libs/server/db";
+import DayoffsService from "@server/features/dayoff/services/dayoff.service";
+
+/**
+ * 특정 id의 dayoff 조회 / 삭제 / 수정
+ *
+ */
+
+const getDayoffById = () => {
+  return;
+};
+
+const deleteDayoff = () => {
+  return;
+};
+
+const editDayoff = () => {};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const dayoffService = DayoffsService();
+
   const query = req.query as { year: string; id: string }; // query
   const sessionUserId = req.session.user?.id; // 세션 아이디
 
@@ -15,15 +33,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
    *
    */
   if (req.method === "GET") {
-    const dayoffList = await db.dayoff.findMany({
-      where: {
-        userId,
-        year,
-      },
-    });
+    const result = await dayoffService.getDayoffById(14, sessionUserId);
 
     return res.status(200).json({
-      dayoffList,
+      ok: true,
+      dayoff: result,
     });
   }
 

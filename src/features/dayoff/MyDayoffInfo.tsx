@@ -1,9 +1,9 @@
 import React from "react";
 import Text from "@components/core/text";
-import { HStack } from "@components/Stack";
-import { BaseButtonImple } from "@components/core/button/index";
-import { Primary } from "@components/template/button";
-import { Space } from "@components/Space";
+import { HStack } from "@components/core/stack";
+import { ButtonImpl } from "@components/core/button/index";
+import { StyledButtons } from "@components/template/button";
+import { Space } from "@components/core/space";
 import { useRouter } from "next/router";
 
 const MyDayoffInfo = () => {
@@ -24,14 +24,11 @@ const MyDayoffInfo = () => {
           <Text shape="T15_700">일</Text>
         </HStack>
 
-        <BaseButtonImple
-          asChild
-          onClick={() => {
-            return router.push("dayoff/add");
-          }}
-        >
-          <Primary shape="smallShort">연차쓰기</Primary>
-        </BaseButtonImple>
+        <ButtonImpl asChild onClick={() => router.push("dayoff/add")}>
+          <StyledButtons.Secondary shape="smallShort">
+            연차쓰기
+          </StyledButtons.Secondary>
+        </ButtonImpl>
       </HStack>
     </div>
   );

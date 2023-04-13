@@ -12,9 +12,13 @@ import { HStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
 import CancelDayoffAlert from "@features/dayoff/alertContainer/CancelDayoffAlert";
 import { StyledButtons } from "@components/template/button";
+import { useGetDayoffService } from "@apis/services/getDayoff.service";
 
 const DayoffDetailPage = () => {
   const router = useAppRouter();
+  const { dayoff, isLoading } = useGetDayoffService();
+
+  if (!dayoff || isLoading) return null;
 
   return (
     <>
@@ -50,15 +54,11 @@ const DayoffDetailPage = () => {
       {/* 메인 정보 */}
       <Space css={{ rpx: 30, rpt: 5, rpb: 30 }}>
         <HStack css={{ ai: "center", gap: 8 }}>
-          <Text shape="T26_800">오전 반차</Text>
-          {/* <Tag asChild>
-            <StyledTag theme={selectThemeDayoffStatus("Approved")}>
-              대기
-            </StyledTag>
-          </Tag> */}
+          <Text shape="T26_800">{dayoff.category}</Text>
+          <Tag status={"Approved"}>{dayoff.status}</Tag>
         </HStack>
         <Text shape="T15_400" color="gary06">
-          2020. 07. 26 08:02:32
+          {dayoff.createAt}
         </Text>
         <Space css={{ rmt: 25 }}>
           <Space css={{ rmb: 20 }}>
@@ -66,7 +66,7 @@ const DayoffDetailPage = () => {
               차감연차
             </Text>
             <Text as="span" shape="T20_800" color="red500">
-              -0.5
+              {dayoff.days}
             </Text>
             <Text as="span" shape="T15_700">
               일
@@ -86,19 +86,19 @@ const DayoffDetailPage = () => {
       <Divider />
       <Row>
         <Text shape="T14_600">휴가종류</Text>
-        <Text shape="T14_400">휴가종류</Text>
+        <Text shape="T14_400">일반휴가</Text>
       </Row>
       <Row>
         <Text shape="T14_600">반차여부</Text>
-        <Text shape="T14_400">휴가종류</Text>
+        <Text shape="T14_400">{dayoff.category}</Text>
       </Row>
       <Row>
         <Text shape="T14_600">시작일자</Text>
-        <Text shape="T14_400">휴가종류</Text>
+        <Text shape="T14_400">{dayoff.startDate}</Text>
       </Row>
       <Row>
         <Text shape="T14_600">종료일자</Text>
-        <Text shape="T14_400">휴가종류</Text>
+        <Text shape="T14_400">{dayoff.endDate}</Text>
       </Row>
       <Row>
         <Text shape="T14_600">사유</Text>
@@ -109,7 +109,7 @@ const DayoffDetailPage = () => {
             textAlign: "right",
           }}
         >
-          휴가종류휴가종류휴가종류휴가종류휴가종류휴가종류
+          {dayoff.reason}
         </Text>
       </Row>
     </>

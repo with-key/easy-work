@@ -12,16 +12,15 @@ type GetDayoffSumEachType = {
   type: DayoffType;
 };
 
-const DayoffReportByUser = async (
+const CreatedDayoffStatusController = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const query = req.query as { year: string; id: string }; // query
+  const query = req.query as { year: string; id: string };
   const year = +query.year;
-  const userId = +query.id;
 
   const sessionUserId = req.session.user?.id;
-  const isAdmin = req.session.user?.admin;
+  // const isAdmin = req.session.user?.admin;
 
   try {
     if (!year) {
@@ -34,7 +33,7 @@ const DayoffReportByUser = async (
     }
 
     /**
-     * @doc 특정 유저의  DayoffType의 days 합계를 산출한다.
+     * @doc 특정 유저의 각 DayoffType들의 days 합계를 산출한다.
      *
      */
     const getDayoffSumEachType = ({
@@ -60,7 +59,7 @@ const DayoffReportByUser = async (
      */
     const getDayoffSumAllTypes = Object.keys(DayoffType).map(async (type) => {
       const daysCount = await getDayoffSumEachType({
-        userId: isAdmin ? userId : sessionUserId, // 관리자는 query.user.id를 사용하고 사용자는 session.user.id를 사용한다.
+        userId: sessionUserId, // 관리자는 query.user.id를 사용하고 사용자는 session.user.id를 사용한다.
         type: type as DayoffCategoryUnion,
         year,
       });
@@ -74,6 +73,7 @@ const DayoffReportByUser = async (
     const result = await pipe(getDayoffSumAllTypes, toAsync, toArray);
     return res.status(200).json({
       ok: true,
+      message: "success",
       result,
     });
   } catch (e) {
@@ -90,6 +90,6 @@ const DayoffReportByUser = async (
 export default withApiSession(
   withHandler({
     method: ["GET"],
-    handler: DayoffReportByUser,
+    handler: CreatedDayoffStatusController,
   })
 );

@@ -10,14 +10,11 @@ import { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
 export const useGoDayoff = () => {
   const mutationFn = async (payload: CreateDayoffPayload) => {
     const data = await apis.post("/dayoffs/go-dayoff", payload);
-    console.log(data);
   };
 
   const { mutate } = useMutation({
     mutationFn,
   });
-
-  // const queryClient = useQueryClient();
 
   return {
     mutate,
