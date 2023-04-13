@@ -5,7 +5,7 @@ import { User } from "@typings/user/user.type";
 export const useCreateUser = () => {
   return useMutation({
     mutationFn: async (user: User) => {
-      const data = await apis.post("/register", user);
+      const data = await apis.post("/auth/register", user);
     },
   });
 };
