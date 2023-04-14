@@ -80,7 +80,7 @@ model SpecialDayoff {
   startDate DateTime
   endDate   DateTime
   year      Int
-  category  SpecialDayoffCategory @default(Refresh)
+  category  SpecialDayoffCategory
   status    Status                @default(Pending)
   user      User                  @relation(fields: [userId], references: [id])
   userId    Int

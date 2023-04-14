@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       // session을 생성하는 부분
       req.session.user = {
         id: user.id,
-        admin: user.role === "User" ? false : true,
+        role: user.role,
       };
 
       await req.session.save();
@@ -37,6 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 export default withApiSession(
   withHandler({
     method: ["POST"],
+    isPrivate: false,
     handler,
   })
 );

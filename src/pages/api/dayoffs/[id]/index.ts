@@ -1,23 +1,8 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import withHandler from "@libs/server/withHandler";
 import { withApiSession } from "@libs/server/withSession";
-import { NextApiRequest, NextApiResponse } from "next";
-import db from "@libs/server/db";
 import DayoffsService from "@server/features/dayoff/services/dayoff.service";
-
-/**
- * 특정 id의 dayoff 조회 / 삭제 / 수정
- *
- */
-
-const getDayoffById = () => {
-  return;
-};
-
-const deleteDayoff = () => {
-  return;
-};
-
-const editDayoff = () => {};
+import { goDayoffService } from "@server/features/dayoff/services/goDayoffService";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const dayoffService = DayoffsService();
@@ -28,10 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const year = +query.year;
   const userId = +query.id;
 
-  /**
-   * 특정 유저의 휴가내역 조회 (발행, 사용, 이월, 소멸 모두 표시)
-   *
-   */
+  // 사용자의 휴가 내역 조회
   if (req.method === "GET") {
     const result = await dayoffService.getDayoffById(14, sessionUserId);
 
@@ -41,14 +23,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
+  // 사용자의 휴가 사용
   if (req.method === "POST") {
-    return res.status(200).end();
+    return goDayoffService(req, res);
   }
 };
 
 export default withApiSession(
   withHandler({
     method: ["GET", "POST"],
+    isPrivate: true,
+    roles: ["All"],
     handler,
   })
 );

@@ -22,8 +22,7 @@ const DayoffList = () => {
     toArray
   );
 
-  if (!dayoffQuery.data || dayoffQuery.isLoading) return null;
-  const dayoffs = dayoffQuery.data.dayoffs;
+  const dayoffs = dayoffQuery.dayoffs;
 
   return (
     <>
@@ -51,17 +50,27 @@ const DayoffList = () => {
           </StyledSelect>
         </Select.Container>
       </HStack>
-      <Space>
-        {isEmpty(dayoffs) ? (
-          <EmptyContainer>
-            <Text shape="T14_400" color="gary07">
-              {year}년에 사용한 휴가가 없습니다.
-            </Text>
-          </EmptyContainer>
-        ) : (
-          dayoffs.map((el) => <DayoffItem key={el.id} dayoff={el} />)
-        )}
-      </Space>
+      {!dayoffQuery.dayoffs || dayoffQuery.isLoading ? (
+        <>
+          <Text>로딩 중</Text>
+        </>
+      ) : (
+        <>
+          <Space>
+            {isEmpty(dayoffs) ? (
+              <EmptyContainer>
+                <Text shape="T14_400" color="gary07">
+                  {year}년에 사용한 휴가가 없습니다.
+                </Text>
+              </EmptyContainer>
+            ) : (
+              dayoffs?.map((dayoff) => (
+                <DayoffItem key={dayoff.id} dayoff={dayoff} />
+              ))
+            )}
+          </Space>
+        </>
+      )}
     </>
   );
 };

@@ -9,5 +9,6 @@ export type CreateDayoffPayload = {
 
 export type DayoffsReponse = {
   ok: boolean;
-  dayoffs: Dayoff[];
+  message: string;
+  result: Dayoff[];
 };

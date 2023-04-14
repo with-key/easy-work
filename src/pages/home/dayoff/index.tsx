@@ -1,13 +1,13 @@
 import React from "react";
 import { styled } from "@styles/stitches.config";
 
-import MyDayoffInfo from "@features/dayoff/MyDayoffInfo";
-import MySpecialDayoff from "@features/dayoff/MySpecialDayoff";
 import Divider from "@components/core/divider";
-import DayoffList from "@features/dayoff/DayoffList";
 
 import * as Header from "@components/core/header";
 import { useAppRouter } from "@hooks/useAppRouter";
+import MyDayoffInfo from "@features/dayoff/user/MyDayoffInfo";
+import MySpecialDayoff from "@features/dayoff/user/MySpecialDayoff";
+import DayoffList from "@features/dayoff/user/DayoffList";
 
 const DayoffMainPage = () => {
   const router = useAppRouter();

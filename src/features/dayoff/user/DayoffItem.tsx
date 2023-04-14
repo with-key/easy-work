@@ -1,24 +1,22 @@
 import React, { PropsWithChildren } from "react";
 import dayjs from "dayjs";
-import { Dayoff } from "@prisma/client";
-
-import { formattedDate } from "@libs/client/date";
-// import { genDayoffCatrgory } from "@libs/client/convertValue";
 
 import Tag from "@components/core/tag";
 import Text from "@components/core/text";
+
 import { HStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
 import { styled } from "@styles/stitches.config";
 import { useRouter } from "next/router";
 
+import { ClientDayoff } from "@apis/services/getDayoff.service";
+
 interface Props extends PropsWithChildren {
-  dayoff: Dayoff;
+  dayoff: ClientDayoff;
 }
 
 const DayoffItem = ({ dayoff }: Props) => {
   const router = useRouter();
-
   const { category, status, startDate, endDate, days, createAt } = dayoff;
   const CreateDate = dayjs(createAt).format("M.DD");
 
@@ -37,11 +35,11 @@ const DayoffItem = ({ dayoff }: Props) => {
       >
         <HStack css={{ gap: 4, ai: "center" }}>
           <Text shape="T15_600">{category}</Text>
-          <Tag status={status} />
+          <Tag status={status}>{dayoff.status}</Tag>
         </HStack>
         <HStack css={{ gap: 8, ai: "center" }}>
           <Text shape="T13_400">
-            {formattedDate(startDate)}~{formattedDate(endDate)}
+            {startDate}~{endDate}
           </Text>
           <Vertical />
           <Text shape="T13_500" color="red500">

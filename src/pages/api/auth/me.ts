@@ -45,7 +45,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default withApiSession(
   withHandler({
+    isPrivate: true,
     method: ["GET"],
+    roles: ["All"],
     handler,
   })
 );

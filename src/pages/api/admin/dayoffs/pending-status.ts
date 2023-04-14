@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import withHandler from "@libs/server/withHandler";
+import withHandler, { Roles } from "@libs/server/withHandler";
 import { withApiSession } from "@libs/server/withSession";
 import db from "@libs/server/db";
 
@@ -8,9 +8,7 @@ import db from "@libs/server/db";
  *
  */
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const userId = req.session.user?.id;
-
-  try {
+  if (req.method === "GET") {
     const dayoffList = await db.dayoff.findMany({
       where: {
         type: "Used",
@@ -30,20 +28,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({
       ok: true,
+      message: "휴가 신청 내역 조회 성공",
       result: dayoffList,
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      return res.status(400).json({
-        ok: false,
-      });
-    }
   }
+
+  return res.status(400).json({
+    ok: false,
+    message: "잘못된 요청입니다.",
+  });
 };
 
 export default withApiSession(
   withHandler({
     method: ["GET"],
+    roles: ["Admin"],
+    isPrivate: true,
     handler,
   })
 );

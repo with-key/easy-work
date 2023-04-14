@@ -12,15 +12,12 @@ type GetDayoffSumEachType = {
   type: DayoffType;
 };
 
-const CreatedDayoffStatusController = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+// 휴가 발행 (소멸, 이월, 새로 발행)
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const query = req.query as { year: string; id: string };
-  const year = +query.year;
 
+  const year = +query.year;
   const sessionUserId = req.session.user?.id;
-  // const isAdmin = req.session.user?.admin;
 
   try {
     if (!year) {
@@ -90,6 +87,8 @@ const CreatedDayoffStatusController = async (
 export default withApiSession(
   withHandler({
     method: ["GET"],
-    handler: CreatedDayoffStatusController,
+    roles: ["Root"],
+    isPrivate: true,
+    handler,
   })
 );

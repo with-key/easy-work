@@ -1,3 +1,4 @@
+import { UserRoles } from "@prisma/client";
 import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -5,7 +6,7 @@ declare module "iron-session" {
   interface IronSessionData {
     user: {
       id: number;
-      admin: boolean;
+      role: "Admin" | "User" | "Root" | "All";
     };
   }
 }
@@ -15,7 +16,7 @@ const options = {
   password: process.env.SESSION_PASSWORD!,
   cookieOptions: {
     secure: true,
-    sameSite: "none" as const,
+    sameSite: "lax" as const,
   },
 };
 

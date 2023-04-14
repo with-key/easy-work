@@ -1,19 +1,19 @@
 import React, { ComponentPropsWithoutRef, PropsWithChildren } from "react";
-import { Status } from "@prisma/client";
 import { styled } from "@styles/stitches.config";
+import { ClientDayoff } from "@apis/services/getDayoff.service";
 
 type Props = {
-  status: Status;
+  status: ClientDayoff["status"];
 } & PropsWithChildren;
 
 const Tag = ({ status, children }: Props) => {
   return <StyledTag theme={themeBuilder(status)}>{children}</StyledTag>;
 };
 
-function themeBuilder(status: Status) {
-  return status === "Approved"
+function themeBuilder(status: ClientDayoff["status"]) {
+  return status === "승인"
     ? "positive"
-    : status === "Pending"
+    : status === "대기"
     ? "idle"
     : "negative";
 }
