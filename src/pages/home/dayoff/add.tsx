@@ -23,6 +23,7 @@ import { useCalculateDayoffService } from "@apis/services/calculateDayoff.servic
 
 // type
 import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
+import GoDayoffDialog from "@features/dayoff/user/alertContainer/GoDayoffDialog";
 
 const DayoffAddPage = () => {
   // Service
@@ -164,11 +165,13 @@ const DayoffAddPage = () => {
               rmt: 24,
             }}
           >
-            <ButtonImpl asChild onClick={() => submitDayoffHandler(dayoff)}>
-              <StyledButtons.Primary shape="big02">
-                신청하기
-              </StyledButtons.Primary>
-            </ButtonImpl>
+            <GoDayoffDialog payload={dayoff}>
+              <ButtonImpl asChild>
+                <StyledButtons.Primary shape="big02">
+                  신청하기
+                </StyledButtons.Primary>
+              </ButtonImpl>
+            </GoDayoffDialog>
           </Space>
         </CurrentStatus>
       </Container>

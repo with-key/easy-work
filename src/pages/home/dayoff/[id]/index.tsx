@@ -7,7 +7,7 @@ import Text from "@components/core/text";
 
 import { HStack } from "@components/core/stack";
 
-import CancelDayoffAlert from "@features/dayoff/user/alertContainer/CancelDayoffAlert";
+import CancelDayoffAlert from "@features/dayoff/user/alertContainer/DeleteDayoffDialog";
 import { StyledButtons } from "@components/template/button";
 import { useGetDayoffService } from "@apis/services/getDayoff.service";
 import DayoffDetail from "@features/dayoff/common/DayoffDetail";
@@ -30,7 +30,7 @@ const DayoffDetailPage = () => {
             <CancelDayoffAlert>
               <StyledButtons.Unset>
                 <Text shape="T15_400" color="red500">
-                  취소
+                  삭제
                 </Text>
               </StyledButtons.Unset>
             </CancelDayoffAlert>

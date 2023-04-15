@@ -11,7 +11,6 @@ import * as Input from "@components/core/input";
 import * as Select from "@components/core/select";
 
 import { BaseInput } from "@components/template/input";
-// import * as ButtonStyle from "@components/template/button";
 import { PrimarySelect } from "@components/template/select";
 
 import { DayoffCategory } from "@prisma/client";
@@ -23,6 +22,7 @@ import { ButtonImpl } from "@components/core/button";
 
 const DayoffEditPage = () => {
   const router = useAppRouter();
+  console.log(router.query);
 
   const useDayoff = useGoDayoff();
   const [dayoff, setDayoff] = useState<CreateDayoffPayload>({
@@ -43,17 +43,13 @@ const DayoffEditPage = () => {
   };
 
   const submitDayoffHandler = (payload: CreateDayoffPayload) => {
-    useDayoff.mutate(payload);
+    useDayoff.mutate({ ...payload, id: router.query.id?.toString() });
   };
 
   return (
     <>
       <Header.Root>
-        <Header.LeftSlot
-          onClick={() => {
-            return router.goUpPath();
-          }}
-        >
+        <Header.LeftSlot onClick={() => router.goUpPath(true)}>
           닫기
         </Header.LeftSlot>
       </Header.Root>

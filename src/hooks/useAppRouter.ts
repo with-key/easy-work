@@ -13,10 +13,10 @@ export const useAppRouter = () => {
   const router = useRouter();
 
   // 상위 pathname으로 이동
-  const goUpPath = () => {
+  const goUpPath = (query = false) => {
     return router.push({
       pathname: getSupPathname(router.pathname),
-      // query: router.query,
+      query: query ? router.query : {},
     });
   };
 

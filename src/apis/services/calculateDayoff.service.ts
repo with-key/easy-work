@@ -1,4 +1,4 @@
-import { useCalculateDayoff } from "@apis/repositories/dayoff/calculateDayoff.repository";
+import { useCalculateDayoff } from "@apis/repositories/dayoff/useCalculateDayoff";
 
 type CalculateDayoffParams = {
   startDate: string;

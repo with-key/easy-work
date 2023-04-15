@@ -9,13 +9,12 @@ import { HStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
 import { ButtonImpl } from "@components/core/button";
 import { StyledDialogButton } from "@components/template/button";
+import { useDeleteDayoff } from "@apis/repositories/dayoff/all/useDeleteDayoff";
+import { useAppRouter } from "@hooks/useAppRouter";
 
 const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
-  const { mutate, status, reset } = useMutation({
-    mutationFn: async () => {
-      return;
-    },
-  });
+  const router = useAppRouter();
+  const { deleteDayoff, status } = useDeleteDayoff();
 
   return (
     <Alert.Root>
@@ -31,7 +30,7 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                     <StyledContent>
                       <Space css={{ rmb: 16 }}>
                         <Text shape="T17_700" css={{ textAlign: "center" }}>
-                          해당 휴가를 취소하시겠습니까?
+                          이 휴가를 삭제하시겠습니까?
                         </Text>
                       </Space>
                       <Row>
@@ -82,11 +81,11 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                       <ButtonImpl
                         asChild
                         onClick={() => {
-                          mutate();
+                          deleteDayoff();
                         }}
                       >
                         <StyledDialogButton dir="right">
-                          휴가 취소
+                          삭제
                         </StyledDialogButton>
                       </ButtonImpl>
                     </HStack>
@@ -98,16 +97,11 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                   <>
                     <StyledContent>
                       <Text shape="T17_700" align="center">
-                        휴가를 신청하였습니다.
+                        휴가를 삭제하였습니다.
                       </Text>
                     </StyledContent>
-                    <Alert.Cancel
-                      asChild
-                      onClick={() => {
-                        return reset();
-                      }}
-                    >
-                      <ButtonImpl asChild>
+                    <Alert.Cancel asChild>
+                      <ButtonImpl onClick={() => router.goUpPath()}>
                         <StyledDialogButton shape="full">
                           확인
                         </StyledDialogButton>

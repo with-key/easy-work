@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { calculateDays } from "../logic/calculateDays";
 import dayoffRepository from "../repositories/dayoffs.repository";
-import { DayoffType } from "@prisma/client";
-import { pipe, reduce, toArray, toAsync } from "@fxts/core";
 import dayjs from "dayjs";
 
 export const calculateDayoffService = async (
