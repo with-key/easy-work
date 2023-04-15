@@ -108,7 +108,7 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                       }}
                     >
                       <ButtonImpl asChild>
-                        <StyledDialogButton size="full">
+                        <StyledDialogButton shape="full">
                           확인
                         </StyledDialogButton>
                       </ButtonImpl>

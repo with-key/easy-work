@@ -8,11 +8,10 @@ import { HStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
 import { styled } from "@styles/stitches.config";
 import { useRouter } from "next/router";
-
-import { ClientDayoff } from "@apis/services/getDayoff.service";
+import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 
 interface Props extends PropsWithChildren {
-  dayoff: ClientDayoff;
+  dayoff: ClientDayoffResponse;
 }
 
 const DayoffItem = ({ dayoff }: Props) => {

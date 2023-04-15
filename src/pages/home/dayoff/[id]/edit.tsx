@@ -151,7 +151,7 @@ const DayoffEditPage = () => {
             }}
           >
             <ButtonImpl asChild onClick={() => submitDayoffHandler(dayoff)}>
-              <StyledButtons.Primary shape="large">
+              <StyledButtons.Primary shape="big02">
                 수정하기
               </StyledButtons.Primary>
             </ButtonImpl>

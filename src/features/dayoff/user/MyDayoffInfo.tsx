@@ -25,7 +25,7 @@ const MyDayoffInfo = () => {
         </HStack>
 
         <ButtonImpl asChild onClick={() => router.push("dayoff/add")}>
-          <StyledButtons.Secondary shape="smallShort">
+          <StyledButtons.Secondary shape="small02">
             연차쓰기
           </StyledButtons.Secondary>
         </ButtonImpl>
