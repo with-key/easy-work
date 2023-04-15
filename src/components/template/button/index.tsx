@@ -6,32 +6,70 @@ import { typoes } from "@styles/typos";
  *
  */
 const BaseButton = styled("button", {
-  borderRadius: 10,
   display: "flex",
   ai: "center",
   jc: "center",
 
   variants: {
     shape: {
-      large: {
-        height: 52,
+      big01: {
+        height: 60,
         width: "100%",
         ...typoes.T17_700,
       },
 
-      smallLong: {
+      big02: {
+        height: 52,
+        width: "100%",
+        ...typoes.T17_700,
+        borderRadius: 10,
+      },
+
+      big01Half: {
+        height: 60,
+        width: 188,
+        ...typoes.T17_700,
+      },
+
+      big02Half: {
+        height: 52,
+        width: 153,
+        ...typoes.T17_700,
+        borderRadius: 7,
+      },
+
+      middle: {
+        ...typoes.T14_600,
+        height: 40,
+        width: 271,
+        borderRadius: 10,
+      },
+
+      small01: {
+        ...typoes.T14_600,
         height: 40,
         width: 130,
+        borderRadius: 10,
       },
-      small: {
+
+      small02: {
+        ...typoes.T14_600,
         height: 40,
         width: 90,
+        borderRadius: 10,
       },
-      smallShort: {
+
+      small03: {
+        ...typoes.T14_600,
         height: 40,
         width: 70,
+        borderRadius: 10,
       },
     },
+  },
+
+  defaultVariants: {
+    shape: "big01",
   },
 });
 
@@ -42,11 +80,41 @@ const BaseButton = styled("button", {
 const Primary = styled(BaseButton, {
   bc: "$blue500",
   color: "white",
+
+  "&:active": {
+    bc: "$blue600",
+  },
+
+  "&:disabled": {
+    bc: "$gary05",
+  },
 });
 
 const Secondary = styled(BaseButton, {
   bc: "$blue200",
   color: "$blue500",
+
+  "&:active": {
+    bc: "$blue300",
+  },
+
+  "&:disabled": {
+    bc: "$gary03",
+  },
+});
+
+const Reject = styled(BaseButton, {
+  bc: "$gary06",
+  color: "white",
+
+  "&:active": {
+    bc: "$gary07",
+  },
+
+  "&:disabled": {
+    bc: "$gary03",
+    color: "$gary06",
+  },
 });
 
 const Unset = styled("button", {
@@ -56,6 +124,7 @@ const Unset = styled("button", {
 export const StyledButtons = {
   Primary,
   Secondary,
+  Reject,
   Unset,
 };
 
@@ -63,13 +132,20 @@ export const StyledButtons = {
  * Dialog Styled Button
  *
  */
-
-export const DialogButton = styled("button", {
+export const StyledDialogButton = styled("button", {
   ...typoes.T17_700,
   height: 54,
 
   bc: "$blue500",
   color: "white",
+
+  "&:active": {
+    bc: "$blue600",
+  },
+
+  "&:disabled": {
+    bc: "$gary05",
+  },
 
   variants: {
     dir: {
@@ -81,10 +157,11 @@ export const DialogButton = styled("button", {
       },
     },
 
-    size: {
+    shape: {
       half: {
         width: 158,
       },
+
       full: {
         width: 316,
         borderRadius: "0 0 20px 20px",
@@ -95,11 +172,20 @@ export const DialogButton = styled("button", {
       true: {
         bc: "$gary06",
         color: "white",
+
+        "&:active": {
+          bc: "$gary07",
+        },
+
+        "&:disabled": {
+          bc: "$gary03",
+        },
       },
     },
   },
 
   defaultVariants: {
-    size: "half",
+    shape: "half",
+    dir: "left",
   },
 });

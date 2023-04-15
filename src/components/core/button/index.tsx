@@ -11,9 +11,9 @@ type ButtonRef = ElementRef<typeof Primitive.button>;
  *
  */
 export const ButtonImpl = React.forwardRef<ButtonRef, ButtonImple>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, asChild = true, ...restProps }, ref) => {
     return (
-      <Primitive.button ref={ref} {...restProps}>
+      <Primitive.button ref={ref} asChild={asChild} {...restProps}>
         {children}
       </Primitive.button>
     );

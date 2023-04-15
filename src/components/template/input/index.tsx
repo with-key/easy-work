@@ -6,6 +6,11 @@ export const BaseInput = styled("input", {
   height: 46,
   rpl: 14,
   border: "$gary04 1px solid",
+  bc: "white",
 
-  variants: {},
+  "-webkit-appearance": "none",
+
+  "&::-webkit-date-and-time-value": {
+    textAlign: "left",
+  },
 });
