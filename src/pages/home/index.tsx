@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 const HomeMainPage = () => {
   return <div>index</div>;

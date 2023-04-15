@@ -4,15 +4,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "@libs/server/db";
 import { withApiSession } from "@libs/server/withSession";
 
-// declare module "iron-session" {
-//   interface IronSessionData {
-//     user: {
-//       id: number;
-//       admin: boolean;
-//     };
-//   }
-// }
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const sessionUserId = req.session.user?.id;
 

@@ -165,8 +165,8 @@ const DayoffAddPage = () => {
             }}
           >
             <ButtonImpl asChild onClick={() => submitDayoffHandler(dayoff)}>
-              <StyledButtons.Primary shape="large">
-                연차 신청
+              <StyledButtons.Primary shape="big02">
+                신청하기
               </StyledButtons.Primary>
             </ButtonImpl>
           </Space>

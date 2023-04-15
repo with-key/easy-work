@@ -1,29 +1,18 @@
 import { useAppRouter } from "@hooks/useAppRouter";
 import { useGetDayoff } from "@apis/repositories/dayoff/useGetDayoff";
 import dayjs from "dayjs";
-
 import {
   dayoffCategoryBuilder,
   dayoffStatusBuilder,
 } from "@libs/client/dayoff";
-
-export type ClientDayoff = {
-  id?: number;
-  createAt: string;
-  startDate: string;
-  endDate: string;
-  days?: number;
-  reason?: string;
-  status?: string;
-  category?: string;
-};
+import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 
 export const useGetDayoffService = () => {
   const { id } = useAppRouter();
   const { data, ...rest } = useGetDayoff(id);
 
   // utils
-  const dayoff: ClientDayoff = {
+  const dayoff: ClientDayoffResponse = {
     ...data,
     createAt: dayjs(data?.createAt).format("YYYY.MM.DD HH:mm:ss"),
     startDate: dayjs(data?.startDate).format("YYYY.MM.DD"),

@@ -12,3 +12,14 @@ export type DayoffsReponse = {
   message: string;
   result: Dayoff[];
 };
+
+export type ClientDayoffResponse = {
+  id?: number;
+  createAt: string;
+  startDate: string;
+  endDate: string;
+  days?: number;
+  reason?: string;
+  status?: string;
+  category?: string;
+};

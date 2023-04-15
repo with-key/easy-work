@@ -1,15 +1,16 @@
 import React from "react";
+import { styled } from "@styles/stitches.config";
 
 import Divider from "@components/core/divider";
 import Tag from "@components/core/tag";
+import Text from "@components/core/text";
+
 import { Space } from "@components/core/space";
 import { HStack } from "@components/core/stack";
-import Text from "@components/core/text";
-import { styled } from "@styles/stitches.config";
-import { ClientDayoff } from "@apis/services/getDayoff.service";
+import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 
 type Props = {
-  dayoff: ClientDayoff;
+  dayoff: ClientDayoffResponse;
 };
 
 const DayoffDetail = ({ dayoff }: Props) => {

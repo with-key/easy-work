@@ -8,7 +8,7 @@ import * as Alert from "@components/template/alert";
 import { HStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
 import { ButtonImpl } from "@components/core/button";
-import { DialogButton } from "@components/template/button";
+import { StyledDialogButton } from "@components/template/button";
 
 const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
   const { mutate, status, reset } = useMutation({
@@ -74,9 +74,9 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                     <HStack>
                       <Alert.Cancel asChild>
                         <ButtonImpl asChild>
-                          <DialogButton dir="left" negative>
+                          <StyledDialogButton dir="left" negative>
                             아니오
-                          </DialogButton>
+                          </StyledDialogButton>
                         </ButtonImpl>
                       </Alert.Cancel>
                       <ButtonImpl
@@ -85,7 +85,9 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                           mutate();
                         }}
                       >
-                        <DialogButton dir="right">휴가 취소</DialogButton>
+                        <StyledDialogButton dir="right">
+                          휴가 취소
+                        </StyledDialogButton>
                       </ButtonImpl>
                     </HStack>
                   </>
@@ -106,7 +108,9 @@ const CancelDayoffAlert = ({ children }: PropsWithChildren) => {
                       }}
                     >
                       <ButtonImpl asChild>
-                        <DialogButton size="full">확인</DialogButton>
+                        <StyledDialogButton size="full">
+                          확인
+                        </StyledDialogButton>
                       </ButtonImpl>
                     </Alert.Cancel>
                   </>
