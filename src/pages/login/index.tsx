@@ -2,19 +2,19 @@ import React, { ChangeEvent, useState } from "react";
 import { styled } from "@styles/stitches.config";
 
 import type { User } from "@typings/user/user.type";
-import { useMutation } from "@tanstack/react-query";
-import { apis } from "@apis/axios/instance";
+import { StyledButtons } from "@components/template/button";
+
+import Text from "@components/core/text";
+import * as InputImpl from "@components/core/input";
+import { BaseInput } from "@components/template/input";
+import { VStack } from "@components/core/stack";
+import LoginDialog from "@features/dayoff/auth/login/LoginDialog";
+import axios from "axios";
 
 const LoginPage = () => {
   const [user, setUser] = useState<User>({
     email: "root@atnp.co.kr",
     password: "gsg9717**",
-  });
-
-  const { mutate } = useMutation({
-    mutationFn: async (user: User) => {
-      await apis.post("/auth/login", user);
-    },
   });
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,42 +23,48 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <div>로그인</div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutate(user);
-        }}
-      >
-        <StyledInput
+    <Container>
+      <LogoContainer>Atnp</LogoContainer>
+      <VStack css={{ gap: 13, rmb: 20 }}>
+        <Text shape="T15_700">ID</Text>
+        <InputImpl.Text
+          asChild
           type="text"
           value={user.email}
           name="email"
           onChange={changeHandler}
-        />
-        <StyledInput
-          type="text"
+        >
+          <BaseInput />
+        </InputImpl.Text>
+      </VStack>
+      <VStack css={{ gap: 13, rmb: 40 }}>
+        <Text shape="T15_700">PW</Text>
+        <InputImpl.Password
+          asChild
           value={user.password}
           name="password"
           onChange={changeHandler}
-        />
-        <StyleButton>로그인</StyleButton>
-      </form>
-    </div>
+        >
+          <BaseInput />
+        </InputImpl.Password>
+      </VStack>
+      <LoginDialog payload={user}>
+        <StyledButtons.Primary shape="big02">LOGIN</StyledButtons.Primary>
+      </LoginDialog>
+    </Container>
   );
 };
 
 export default LoginPage;
 
-const StyledInput = styled("input", {
-  width: "100%",
-  border: "1px solid #333",
-  height: 48,
+const LogoContainer = styled("div", {
+  height: 295,
+  display: "flex",
+  ai: "center",
+  jc: "center",
 });
 
-const StyleButton = styled("button", {
-  border: "1px solid #333",
-  width: "100%",
-  height: 40,
+const Container = styled("div", {
+  rpx: 30,
+  rpy: 20,
 });

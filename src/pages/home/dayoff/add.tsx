@@ -26,7 +26,6 @@ import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
 import GoDayoffDialog from "@features/dayoff/user/alertContainer/GoDayoffDialog";
 
 const DayoffAddPage = () => {
-  // Service
   const router = useRouter();
   const useDayoff = useGoDayoff();
 
@@ -55,10 +54,6 @@ const DayoffAddPage = () => {
   const chagneEndDateHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setDayoff((pre) => ({ ...pre, endDate: new Date(value) }));
-  };
-
-  const submitDayoffHandler = (payload: CreateDayoffPayload) => {
-    useDayoff.mutate(payload);
   };
 
   return (
@@ -144,13 +139,15 @@ const DayoffAddPage = () => {
         <CurrentStatus>
           <HStack css={{ jc: "space-between", rmb: 6 }}>
             <Text shape="T14_600">보유연차</Text>
-            <Text shape="T14_600">{dayoffStatus?.hasDays}</Text>
+            <Text shape="T14_600">
+              {dayoffStatusIsLoading ? "계산 중" : dayoffStatus?.hasDays}
+            </Text>
           </HStack>
 
           <HStack css={{ jc: "space-between", rmb: 6 }}>
             <Text shape="T14_600">차감연차</Text>
             <Text shape="T14_600" color="red500">
-              {dayoffStatus?.count}
+              {dayoffStatusIsLoading ? "계산 중" : dayoffStatus?.count}
             </Text>
           </HStack>
           <Divider />

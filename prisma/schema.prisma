@@ -20,6 +20,7 @@ model User {
   email         String?         @unique
   password      String
   name          String?
+  nickname      String?
   avatar        String?
   role          UserRoles       @default(User)
   joinDay       DateTime?
