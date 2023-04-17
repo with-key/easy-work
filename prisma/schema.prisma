@@ -26,6 +26,8 @@ model User {
   joinDay       DateTime?
   createAt      DateTime        @default(now())
   updateAt      DateTime        @updatedAt
+  isWorking     Boolean         @default(true)
+  isFullWorking Boolean         @default(true)
   Dayoff        Dayoff[]
   SpecialDayoff SpecialDayoff[]
 }
