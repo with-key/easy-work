@@ -2,9 +2,11 @@ import {
   ClientDayoffStuatusUser,
   DayoffStatusUser,
 } from "@apis/repositories/dayoff/admin/useGetUsersStatus";
+import { adminPageUrl } from "@apis/url/admin";
 import { Space } from "@components/core/space";
 import { HStack } from "@components/core/stack";
 import Text from "@components/core/text";
+import { useAppRouter } from "@hooks/useAppRouter";
 import { styled } from "@styles/stitches.config";
 import React from "react";
 
@@ -13,8 +15,14 @@ type Props = {
 };
 
 const UserInfoCard = ({ user }: Props) => {
+  const router = useAppRouter();
+
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        router.push(adminPageUrl.dayoff.userStatusDetail(user.id));
+      }}
+    >
       <HStack css={{ jc: "space-between", ai: "center" }}>
         <HStack css={{ gap: 12 }}>
           <Avatar />

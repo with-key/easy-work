@@ -10,9 +10,20 @@ import { HStack } from "@components/core/stack";
 import { useAppRouter } from "@hooks/useAppRouter";
 import { ButtonImpl } from "@components/core/button";
 import { StyledButtons } from "@components/template/button";
+import GoDayoffDialog from "@features/dayoff/user/alertContainer/GoDayoffDialog";
+import { DayoffCategory } from "@prisma/client";
 
 const HomeMainPage = () => {
   const router = useAppRouter();
+
+  const directGoDayoff = (category: DayoffCategory) => {
+    return {
+      category,
+      reason: "개인사유",
+      startDate: new Date(),
+      endDate: new Date(),
+    };
+  };
 
   return (
     <>
@@ -38,21 +49,27 @@ const HomeMainPage = () => {
             <div>{">"}</div>
           </PageButton>
           <HStack css={{ gap: 11 }}>
-            <DirectDayoffButton>
-              <Text shape="T15_700" color="gary01">
-                오전반차
-              </Text>
-            </DirectDayoffButton>
-            <DirectDayoffButton>
-              <Text shape="T15_700" color="gary01">
-                오후반차
-              </Text>
-            </DirectDayoffButton>
-            <DirectDayoffButton>
-              <Text shape="T15_700" color="gary01">
-                일일연차
-              </Text>
-            </DirectDayoffButton>
+            <GoDayoffDialog payload={directGoDayoff("AmHalf")}>
+              <DirectDayoffButton>
+                <Text shape="T15_700" color="gary01">
+                  오전반차
+                </Text>
+              </DirectDayoffButton>
+            </GoDayoffDialog>
+            <GoDayoffDialog payload={directGoDayoff("PmHalf")}>
+              <DirectDayoffButton>
+                <Text shape="T15_700" color="gary01">
+                  오후반차
+                </Text>
+              </DirectDayoffButton>
+            </GoDayoffDialog>
+            <GoDayoffDialog payload={directGoDayoff("Full")}>
+              <DirectDayoffButton>
+                <Text shape="T15_700" color="gary01">
+                  일일연차
+                </Text>
+              </DirectDayoffButton>
+            </GoDayoffDialog>
           </HStack>
           <PageButton>
             <Text shape="T20_800">ATNP Point </Text>

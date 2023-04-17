@@ -3,9 +3,27 @@ import db from "@libs/server/db";
 import withHandler from "@libs/server/withHandler";
 import { withApiSession } from "@libs/server/withSession";
 
+type AdminQuery = {
+  target: "admin";
+  year: string;
+  userId: string;
+};
+
+type UserQuery = {
+  target: "user";
+  year: string;
+};
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const userId = req.session.user?.id;
-  const query = req.query as { year: string };
+  const sessionUserId = req.session.user?.id;
+  const query = req.query as AdminQuery | UserQuery;
+
+  // 관리자 여부
+  const isAdmin = req.session.user?.role === "Admin";
+
+  // 유저의 권한에 따른 userId 조회 설정
+  const userId =
+    query.target === "admin" && isAdmin ? +query.userId : sessionUserId;
 
   if (!query.year) {
     return res.status(400).json({

@@ -32,6 +32,7 @@ export const useGetUsersStatus = () => {
     queryFn,
   });
 
+  // 연차 현황 유저 리스트
   const users = data?.result.map((user) => ({
     ...user,
     joinDay: dayjs(user.joinDay).format("YYYY-MM-DD"),

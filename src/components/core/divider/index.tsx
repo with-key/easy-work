@@ -10,7 +10,7 @@ const Divider = (props: Props) => {
 export default Divider;
 
 const StyledDivider = styled("div", {
-  height: 5,
+  minHeight: 5,
   bc: "$gary02",
   width: "100vw",
   marginLeft: "calc(-50vw + 50%)",

@@ -6,9 +6,9 @@ import Text from "@components/core/text";
 
 import { HStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
-import { styled } from "@styles/stitches.config";
 import { useRouter } from "next/router";
 import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
+import Vertical from "@components/template/vertical";
 
 interface Props extends PropsWithChildren {
   dayoff: ClientDayoffResponse;
@@ -17,7 +17,7 @@ interface Props extends PropsWithChildren {
 const DayoffItem = ({ dayoff }: Props) => {
   const router = useRouter();
   const { category, status, startDate, endDate, days, createAt } = dayoff;
-  const CreateDate = dayjs(createAt).format("M.DD");
+  const createDate = dayjs(createAt).format("M.DD");
 
   return (
     <HStack
@@ -27,10 +27,14 @@ const DayoffItem = ({ dayoff }: Props) => {
       }}
     >
       <Space css={{ rpy: 12 }}>
-        <Text shape="T14_400">{CreateDate}</Text>
+        <Text shape="T14_400">{createDate}</Text>
       </Space>
       <Space
-        css={{ borderBottom: "$gary04 1px solid", rpy: 12, width: "100%" }}
+        css={{
+          borderBottom: "$gary04 1px solid",
+          rpy: 12,
+          width: "100%",
+        }}
       >
         <HStack css={{ gap: 4, ai: "center" }}>
           <Text shape="T15_600">{category}</Text>
@@ -51,9 +55,3 @@ const DayoffItem = ({ dayoff }: Props) => {
 };
 
 export default DayoffItem;
-
-const Vertical = styled("div", {
-  width: 1,
-  height: 10,
-  bc: "$gary04",
-});

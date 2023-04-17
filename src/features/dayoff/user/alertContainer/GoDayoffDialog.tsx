@@ -1,8 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { styled } from "@styles/stitches.config";
 
-import { useAlterDayoffStatus } from "@apis/repositories/dayoff/admin/useAlterDayoffStatus";
-
 import * as Alert from "@components/template/alert";
 import Text from "@components/core/text";
 
