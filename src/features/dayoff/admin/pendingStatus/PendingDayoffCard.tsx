@@ -1,6 +1,5 @@
 import React from "react";
 import { styled } from "@styles/stitches.config";
-
 import Text from "@components/core/text";
 import { HStack, VStack } from "@components/core/stack";
 import { useAppRouter } from "@hooks/useAppRouter";

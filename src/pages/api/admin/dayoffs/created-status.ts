@@ -17,15 +17,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const query = req.query as { year: string; id: string };
 
   const year = +query.year;
-  const sessionUserId = req.session.user?.id;
+  const userId = req.query.id;
 
   try {
-    if (!year) {
-      const error = new Error();
-      5;
-      throw Object.assign(error, {
-        message: "400",
-        cause: "사용할 수 없는 query",
+    if (!year || !userId) {
+      return res.status(404).json({
+        ok: false,
+        message: "사용할 수 없는 query",
       });
     }
 
@@ -56,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
      */
     const getDayoffSumAllTypes = Object.keys(DayoffType).map(async (type) => {
       const daysCount = await getDayoffSumEachType({
-        userId: sessionUserId, // 관리자는 query.user.id를 사용하고 사용자는 session.user.id를 사용한다.
+        userId: +userId, // 관리자는 query.user.id를 사용하고 사용자는 session.user.id를 사용한다.
         type: type as DayoffCategoryUnion,
         year,
       });
@@ -87,7 +85,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 export default withApiSession(
   withHandler({
     method: ["GET"],
-    roles: ["Root"],
+    roles: ["Admin"],
     isPrivate: true,
     handler,
   })

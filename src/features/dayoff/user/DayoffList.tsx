@@ -3,7 +3,7 @@ import { isEmpty, map, pipe, range, toArray } from "@fxts/core";
 import dayjs from "dayjs";
 
 import DayoffItem from "./DayoffItem";
-import { useGetDayoffs } from "@apis/repositories/dayoff/useGetDayoffs";
+import { useGetDayoffs } from "@apis/repositories/dayoff/all/useGetDayoffs";
 
 import Text from "@components/core/text";
 import { HStack } from "@components/core/stack";
