@@ -15,21 +15,22 @@ enum UserRoles {
 }
 
 model User {
-  id            Int             @id @default(autoincrement())
-  phone         String?         @unique
-  email         String?         @unique
-  password      String
-  name          String?
-  nickname      String?
-  avatar        String?
-  role          UserRoles       @default(User)
-  joinDay       DateTime?
-  createAt      DateTime        @default(now())
-  updateAt      DateTime        @updatedAt
-  isWorking     Boolean         @default(true)
-  isFullWorking Boolean         @default(true)
-  Dayoff        Dayoff[]
-  SpecialDayoff SpecialDayoff[]
+  id                  Int                   @id @default(autoincrement())
+  phone               String?               @unique
+  email               String?               @unique
+  password            String
+  name                String?
+  nickname            String?
+  avatar              String?
+  role                UserRoles             @default(User)
+  joinDay             DateTime?
+  createAt            DateTime              @default(now())
+  updateAt            DateTime              @updatedAt
+  isWorking           Boolean               @default(true)
+  isFullWorking       Boolean               @default(true)
+  Dayoff              Dayoff[]
+  SpecialDayoff       SpecialDayoff[]
+  SpecialDayoffTicket SpecialDayoffTicket[]
 }
 
 enum Status {
@@ -70,12 +71,20 @@ model Dayoff {
 }
 
 enum SpecialDayoffCategory {
-  Refresh
-  Apple
-  Mung
-  Summer
+  Refresh // 리프레시
+  Apple // 애플
+  Mung // 멍떠 
+  Summer // 여름휴가
+  Official // 공가
+  Maternity // 출산
+  Paternity // 배우자 출산
+  Childcare // 육아
+  Compassionate // 경조
+  FamilyCare // 가족 돌봄
+  Medical // 의료
 }
 
+// 특별휴가 사용 내역
 model SpecialDayoff {
   id        Int                   @id @default(autoincrement())
   createAt  DateTime              @default(now())
@@ -83,6 +92,7 @@ model SpecialDayoff {
   startDate DateTime
   endDate   DateTime
   year      Int
+  days      Float
   category  SpecialDayoffCategory
   status    Status                @default(Pending)
   user      User                  @relation(fields: [userId], references: [id])
@@ -99,4 +109,28 @@ model Holiday {
   year      String // 연도
   month     String // 월
   date      DateTime @unique // 휴가 일자 
+}
+
+enum SpecialDayoffTicketStatus {
+  Pending
+  Used
+}
+
+// 특별휴가 티켓 
+// 유저는 티켓을 가지고 있어야 특별휴가를 사용할 수 있다.
+// Pending : 사용되지 않은 티켓
+// Used : 사용된 티켓
+model SpecialDayoffTicket {
+  id       Int                       @id @default(autoincrement())
+  createAt DateTime                  @default(now())
+  updateAt DateTime                  @updatedAt
+  year     Int
+  days     Float
+  dueDate  DateTime?
+  status   SpecialDayoffTicketStatus @default(Pending)
+  category SpecialDayoffCategory
+  user     User                      @relation(fields: [userId], references: [id])
+  userId   Int
+
+  @@index([userId])
 }

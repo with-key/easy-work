@@ -12,6 +12,7 @@ import { ButtonImpl } from "@components/core/button";
 import { StyledButtons } from "@components/template/button";
 import { HStack, VStack } from "@components/core/stack";
 import { Space } from "@components/core/space";
+
 import UserList from "@features/dayoff/admin/userStatus/UserList";
 
 const UserDayoffDetail = () => {
