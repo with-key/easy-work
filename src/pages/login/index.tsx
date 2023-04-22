@@ -9,7 +9,6 @@ import * as InputImpl from "@components/core/input";
 import { BaseInput } from "@components/template/input";
 import { VStack } from "@components/core/stack";
 import LoginDialog from "@features/dayoff/auth/login/LoginDialog";
-import axios from "axios";
 
 const LoginPage = () => {
   const [user, setUser] = useState<User>({

@@ -25,7 +25,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       };
 
       await req.session.save();
-      return res.status(200).end();
+      return res.status(200).json({
+        ok: true,
+        meesage: "로그인 성공",
+      });
     }
   }
 
