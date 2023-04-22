@@ -32,7 +32,7 @@ export const useGetTickets = () => {
   const tickets = data?.result.map((ticket) => ({
     ...ticket,
     dueDate: convertDays(ticket.dueDate),
-    category: covertToKoreanValue(ticket.category as SpecialDayoffCategory),
+    label: covertToKoreanValue(ticket.category as SpecialDayoffCategory),
   }));
 
   return { tickets };

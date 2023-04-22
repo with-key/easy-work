@@ -5,8 +5,10 @@ import { styled } from "@styles/stitches.config";
 import { useGetTickets } from "@apis/repositories/specialDayoff/ticket/useGetTickets";
 import { Space } from "@components/core/space";
 import Vertical from "@components/template/vertical";
+import { useAppRouter } from "@hooks/useAppRouter";
 
 const MySpecialDayoff = () => {
+  const router = useAppRouter();
   const { tickets } = useGetTickets();
 
   return (
@@ -16,10 +18,13 @@ const MySpecialDayoff = () => {
       </Space>
       <VStack css={{ gap: 20 }}>
         {tickets?.map((el) => (
-          <DayoffCard key={el.id}>
+          <DayoffCard
+            key={el.id}
+            onClick={() => router.push(`/home/special-dayoff/add`)}
+          >
             <div>이미지</div>
             <VStack css={{ jc: "space-between" }}>
-              <Text shape="T15_600">{el.category}</Text>
+              <Text shape="T15_600">{el.label}</Text>
               <HStack css={{ gap: 8, ai: "center" }}>
                 <Text shape="T14_600" color="blue500">
                   {el.days}일
@@ -43,4 +48,5 @@ const DayoffCard = styled("div", {
   height: 46,
   display: "flex",
   gap: 12,
+  border: "1px solid red",
 });
