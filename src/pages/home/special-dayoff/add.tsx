@@ -17,11 +17,13 @@ import { ButtonImpl } from "@components/core/button";
 import { StyledButtons } from "@components/template/button";
 import { BaseInput } from "@components/template/input";
 import { useGetTickets } from "@apis/repositories/specialDayoff/ticket/useGetTickets";
+import { AddSpecialDayoffPayload } from "@apis/specialDayoff";
+import { useGoSpeicalDayoff } from "@apis/repositories/specialDayoff/goSpecialDayoff";
 
 const SpecialDayoffAddpage = () => {
-  const [specialDayoff, setSpecialDayoff] = useState({
-    category: "",
-    year: dayjs().year(),
+  const [specialDayoff, setSpecialDayoff] = useState<AddSpecialDayoffPayload>({
+    category: "default",
+    year: dayjs().year().toString(),
     startDate: new Date(),
     endDate: new Date(),
     startDateAt: "AM",
@@ -30,6 +32,7 @@ const SpecialDayoffAddpage = () => {
   });
 
   const { tickets } = useGetTickets();
+  const { goSpecialDayoff } = useGoSpeicalDayoff();
   const router = useAppRouter();
 
   const changeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +77,9 @@ const SpecialDayoffAddpage = () => {
               }}
             >
               <PrimarySelect>
+                <Select.Item value="default" disabled>
+                  신청할 특별휴가를 선택하세요.
+                </Select.Item>
                 {tickets
                   ? tickets.map((ticket) => (
                       <Select.Item key={ticket.id} value={ticket.category}>
@@ -170,7 +176,7 @@ const SpecialDayoffAddpage = () => {
               <StyledButtons.Primary
                 shape="big02"
                 onClick={() => {
-                  console.log("specialDayoff", specialDayoff);
+                  goSpecialDayoff(specialDayoff);
                 }}
               >
                 신청하기

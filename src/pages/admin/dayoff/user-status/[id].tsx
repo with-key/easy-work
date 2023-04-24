@@ -33,11 +33,18 @@ const UserDayoffDetail = () => {
           }}
         >
           <Aavatar />
-          <ButtonImpl>
-            <StyledButtons.Secondary shape="small02">
-              휴가발급
-            </StyledButtons.Secondary>
-          </ButtonImpl>
+          <HStack css={{ gap: 10 }}>
+            <ButtonImpl>
+              <StyledButtons.Secondary shape="small02">
+                휴가발급
+              </StyledButtons.Secondary>
+            </ButtonImpl>
+            <ButtonImpl>
+              <StyledButtons.Secondary shape="small02">
+                특별휴가 발행
+              </StyledButtons.Secondary>
+            </ButtonImpl>
+          </HStack>
         </HStack>
         <VStack>
           <Text>With(예상기)</Text>

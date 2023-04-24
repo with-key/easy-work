@@ -9,6 +9,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     status: "Approved" | "Rejected";
   };
 
+  if (req.method === "GET") {
+    const specialDayoff = await db.specialDayoff.findMany({
+      select: {
+        id: true,
+        category: true,
+        createAt: true,
+        user: {
+          select: { name: true },
+        },
+      },
+    });
+    return res.status(200).json({
+      ok: true,
+      result: specialDayoff,
+      message: "특별휴가 신청 대기목록 조회 성공",
+    });
+  }
+
   if (req.method === "PATCH") {
     const { specialDayoffId, status } = body;
     const dayoff = await db.specialDayoff.update({
@@ -45,7 +63,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default withApiSession(
   withHandler({
-    method: ["POST", "PATCH"],
+    method: ["POST", "PATCH", "GET"],
     isPrivate: false,
     roles: ["All"],
     handler,

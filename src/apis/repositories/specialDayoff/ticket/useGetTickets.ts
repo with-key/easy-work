@@ -53,7 +53,7 @@ const categoryToKorean = {
 };
 
 // categoryToKorean를 사용해서 카테고리를 한글로 바꿔줍니다.
-function covertToKoreanValue(cateory: SpecialDayoffCategory) {
+export function covertToKoreanValue(cateory: SpecialDayoffCategory) {
   return categoryToKorean[cateory];
 }
 

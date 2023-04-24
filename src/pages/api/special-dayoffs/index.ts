@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       };
 
     // ticket이 있는지 확인
-    const ticket = await db.specialDayoffTicket.findFirst({
+    const hasTicket = await db.specialDayoffTicket.findFirst({
       where: {
         userId: req.session.user.id,
         year: parseInt(year),
@@ -31,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     // ticket이 없으면 에러
-    if (!ticket) {
+    if (!hasTicket) {
       return res.status(400).json({
         ok: false,
         message: "사용가능한 티켓 없음",
@@ -39,7 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // 사용가능한 티켓일수
-    const enabledDays = ticket.days;
+    const enabledDays = hasTicket.days;
 
     // 휴가일수 계산
     const { days } = await calculateDays(
@@ -62,10 +62,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         category,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
-        days: -days,
+        days: -days, // 휴가 사용일은 음수로 표기
         year: parseInt(year),
         userId: req.session.user.id,
-        ticketId: ticket.id,
+        ticketId: hasTicket.id,
       },
     });
 
@@ -73,7 +73,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       // hasTicket의 status를 used로 변경
       await db.specialDayoffTicket.update({
         where: {
-          id: ticket.id,
+          id: hasTicket.id,
         },
         data: {
           status: "Used",
@@ -87,10 +87,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       result,
     });
   }
-
-  return res.status(201).json({
-    ok: true,
-  });
 };
 
 export default withApiSession(

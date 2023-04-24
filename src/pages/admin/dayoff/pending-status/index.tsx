@@ -8,9 +8,11 @@ import { adminPageUrl } from "@apis/url/admin";
 import { isEmpty } from "@fxts/core";
 import PendingDayoffCard from "@features/dayoff/admin/pendingStatus/PendingDayoffCard";
 import { useGetPendingStatus } from "@apis/repositories/dayoff/admin/useGetPendingStatus";
+import { useGetPendingSpecialDayoffs } from "@apis/repositories/specialDayoff/admin/useGetPendingSpecialDayoffs";
 
 const PendingStatusPage = () => {
   const { pendings } = useGetPendingStatus();
+  const { pendingSepcialDayoffs } = useGetPendingSpecialDayoffs();
   const router = useAppRouter();
 
   return (
@@ -44,22 +46,42 @@ const PendingStatusPage = () => {
             휴가현황
           </Text>
         </HStack>
-
-        {isEmpty(pendings) ? (
-          <Space>
-            <HStack css={{ ai: "center", jc: "center", height: 300 }}>
-              <Text shape="T14_400" color="gary06">
-                휴가신청 내역이 없습니다
-              </Text>
-            </HStack>
-          </Space>
-        ) : (
-          <Space>
-            {pendings?.map((dayoff) => {
-              return <PendingDayoffCard key={dayoff.id} pending={dayoff} />;
-            })}
-          </Space>
-        )}
+        <Space css={{ rmt: 20 }}>
+          <Text shape="T17_700">연차</Text>
+          {isEmpty(pendings) ? (
+            <Space>
+              <HStack css={{ ai: "center", jc: "center", height: 300 }}>
+                <Text shape="T14_400" color="gary06">
+                  휴가신청 내역이 없습니다
+                </Text>
+              </HStack>
+            </Space>
+          ) : (
+            <Space>
+              {pendings?.map((dayoff) => {
+                return <PendingDayoffCard key={dayoff.id} pending={dayoff} />;
+              })}
+            </Space>
+          )}
+        </Space>
+        <Space css={{ rmt: 20 }}>
+          <Text shape="T17_700">특별휴가</Text>
+          {isEmpty(pendingSepcialDayoffs) ? (
+            <Space>
+              <HStack css={{ ai: "center", jc: "center", height: 300 }}>
+                <Text shape="T14_400" color="gary06">
+                  휴가신청 내역이 없습니다
+                </Text>
+              </HStack>
+            </Space>
+          ) : (
+            <Space>
+              {pendingSepcialDayoffs?.map((dayoff) => {
+                return <PendingDayoffCard key={dayoff.id} pending={dayoff} />;
+              })}
+            </Space>
+          )}
+        </Space>
       </Space>
     </Space>
   );

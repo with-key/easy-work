@@ -24,10 +24,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    console.log(query);
-
-    // const tickets = groupBy((ticket) => ticket.category, query);
-
     return res.status(200).json({
       ok: true,
       message: "특별휴가 티켓 조회 성공",
@@ -35,6 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
+  // 사용자의 특별 휴가 신청
   if (req.method === "POST") {
     const body = req.body as {
       category: SpecialDayoffCategory;

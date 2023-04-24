@@ -37,7 +37,6 @@ const DayoffList = () => {
           asChild
           value={year}
           onChange={(e) => {
-            console.log(e.target.value);
             setYear(+e.target.value);
           }}
         >
