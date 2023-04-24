@@ -5,7 +5,7 @@ import db from "@libs/server/db";
 type Day = "AM" | "PM";
 
 // 특정 날짜가 공휴일에 포함되는지 검증한다.
-const includeAtHoliday = (date: Date, holidayPeriod: string[]): boolean => {
+const includeAtHoliday = (date: string, holidayPeriod: string[]): boolean => {
   const target = dayjs(date).format("YYYY-MM-DD");
 
   if (dayjs(target).day() === 0 || dayjs(target).day() === 6) {
@@ -51,16 +51,23 @@ export const calculateDays = async (
     toArray
   );
 
-  const isStartHoli = includeAtHoliday(startDate, holidayPeriod);
-  const isEndHoli = includeAtHoliday(endDate, holidayPeriod);
+  // 휴가기간 시작일이 공휴일인지 검증
+  const isStartHoli = includeAtHoliday(
+    dayjs(startDate).format("YYYY-MM-DD"),
+    holidayPeriod
+  );
+
+  // 휴가기간 종료일이 공휴일인지 검증
+  const isEndHoli = includeAtHoliday(
+    dayjs(endDate).format("YYYY-MM-DD"),
+    holidayPeriod
+  );
 
   // 휴가기간 중 공휴일 제외
   const period = pipe(
     range(periodCount), // 휴가기간만큼 반복
     map((day) => dayjs(startDate).add(day, "day").format("YYYY-MM-DD")), //
-    reject((day) => dayjs(day).day() === 0), // 일요일
-    reject((day) => dayjs(day).day() === 6), // 토요일
-    reject((day) => includes(day, holidayPeriod)), // 공휴일
+    reject((day) => includeAtHoliday(day, holidayPeriod)),
     toArray
   );
 
