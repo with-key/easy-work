@@ -4,26 +4,27 @@ import db from "@libs/server/db";
 
 type Day = "AM" | "PM";
 
+// 특정 날짜가 공휴일에 포함되는지 검증한다.
+const includeAtHoliday = (date: Date, holidayPeriod: string[]): boolean => {
+  const target = dayjs(date).format("YYYY-MM-DD");
+
+  if (dayjs(target).day() === 0 || dayjs(target).day() === 6) {
+    return true;
+  }
+
+  return includes(target, holidayPeriod);
+};
+
 // 휴가기간과 실제 차감일을 각각 산출한다.
-const getAdditionalDays = (startFrom: Day, endTo: Day) => {
-  if (startFrom === "AM" && endTo === "PM") {
-    return 0;
-  }
-
-  if (startFrom === "AM" && endTo === "AM") {
-    return -0.5;
-  }
-
-  if (startFrom === "PM" && endTo === "PM") {
-    return -0.5;
-  }
-
-  // 오후부터 다음 날 오전까지
-  if (startFrom === "PM" && endTo === "AM") {
-    return -1;
-  }
-
-  throw Error("startDate or endDate is undefined");
+const getAdditionalDays = (
+  startFrom: Day,
+  endTo: Day,
+  isStartHoli: boolean,
+  isEndHoli: boolean
+) => {
+  const startFromToNumber = isStartHoli ? 0 : startFrom === "AM" ? 0 : -0.5;
+  const endToToNumber = isEndHoli ? 0 : endTo === "AM" ? -0.5 : 0;
+  return startFromToNumber + endToToNumber;
 };
 
 export const calculateDays = async (
@@ -50,6 +51,9 @@ export const calculateDays = async (
     toArray
   );
 
+  const isStartHoli = includeAtHoliday(startDate, holidayPeriod);
+  const isEndHoli = includeAtHoliday(endDate, holidayPeriod);
+
   // 휴가기간 중 공휴일 제외
   const period = pipe(
     range(periodCount), // 휴가기간만큼 반복
@@ -60,7 +64,8 @@ export const calculateDays = async (
     toArray
   );
 
-  const days = period.length + getAdditionalDays(startFrom, endTo);
+  const days =
+    period.length + getAdditionalDays(startFrom, endTo, isStartHoli, isEndHoli);
 
   return {
     period, // 휴가기간
