@@ -1,10 +1,10 @@
 import { apis } from "@apis/axios/instance";
 import { useMutation } from "@tanstack/react-query";
-import { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
+import { GoDayoffPayload } from "@typings/dayoff/dayoff.type";
 import { AxiosError } from "axios";
 
 export const useGoDayoff = () => {
-  const mutationFn = async (payload: CreateDayoffPayload) => {
+  const mutationFn = async (payload: GoDayoffPayload) => {
     const { data } = await apis.post("/dayoffs/go-dayoff", payload);
     return data;
   };

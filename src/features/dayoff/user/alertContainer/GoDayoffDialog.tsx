@@ -8,11 +8,11 @@ import { HStack } from "@components/core/stack";
 import { ButtonImpl } from "@components/core/button";
 import { StyledDialogButton } from "@components/template/button";
 import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
-import { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
+import { GoDayoffPayload } from "@typings/dayoff/dayoff.type";
 import { useAppRouter } from "@hooks/useAppRouter";
 
 type Props = {
-  payload: CreateDayoffPayload;
+  payload: GoDayoffPayload;
 } & PropsWithChildren;
 
 const GoDayoffDialog = ({ children, payload }: Props) => {

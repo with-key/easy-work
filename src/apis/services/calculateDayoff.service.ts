@@ -3,6 +3,8 @@ import { useCalculateDayoff } from "@apis/repositories/dayoff/useCalculateDayoff
 type CalculateDayoffParams = {
   startDate: string;
   endDate: string;
+  startDateAt: "AM" | "PM";
+  endDateAt: "AM" | "PM";
 };
 
 export const useCalculateDayoffService = (params: CalculateDayoffParams) => {

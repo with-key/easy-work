@@ -6,6 +6,8 @@ import { dayoffQueryKeys } from "@apis/keys/dayoff";
 export type CalculateDayoffPaylod = {
   startDate: string;
   endDate: string;
+  startDateAt: "AM" | "PM";
+  endDateAt: "AM" | "PM";
 };
 
 export const useCalculateDayoff = (payload: CalculateDayoffPaylod) => {

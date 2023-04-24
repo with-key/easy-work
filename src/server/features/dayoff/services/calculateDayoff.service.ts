@@ -8,7 +8,12 @@ export const calculateDayoffService = async (
   res: NextApiResponse
 ) => {
   const { getUserDayoffCount } = dayoffRepository();
-  const { startDate, endDate } = req.query;
+  const { startDate, endDate, startDateAt, endDateAt } = req.query as {
+    startDate: string;
+    endDate: string;
+    startDateAt: "AM" | "PM";
+    endDateAt: "AM" | "PM";
+  };
   const userId = req.session.user.id;
 
   if (startDate && endDate) {
@@ -16,7 +21,12 @@ export const calculateDayoffService = async (
     const newEndDate = new Date(endDate.toString());
 
     // days
-    const count = await calculateDays(newStartDate, newEndDate, "Full");
+    const { days } = await calculateDays(
+      newStartDate,
+      newEndDate,
+      startDateAt,
+      endDateAt
+    );
 
     // available days
     const hasDays = await getUserDayoffCount(userId, dayjs().year());
@@ -25,7 +35,7 @@ export const calculateDayoffService = async (
       ok: true,
       message: 'Successfully calculated "dayoff".',
       result: {
-        count: count.days,
+        days,
         hasDays,
       },
     });

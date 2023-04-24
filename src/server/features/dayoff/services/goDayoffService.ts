@@ -17,7 +17,10 @@ export const goDayoffService = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { category, startDate, endDate, reason } = req.body as GoDayoffBody;
+  const { category, startDate, endDate, reason, startDateAt, endDateAt } =
+    req.body as GoDayoffBody;
+
+  console.log("req.body", req.body);
 
   const userId = req.session.user?.id;
   const dayoffId = req.body.id;
@@ -56,8 +59,12 @@ export const goDayoffService = async (
     });
   }
 
-  // 휴가 days 산출, 반차는 -0.5
-  const { days } = await calculateDays(startDate, endDate, category);
+  const { days } = await calculateDays(
+    startDate,
+    endDate,
+    startDateAt,
+    endDateAt
+  );
 
   const payloadDayoff: GoDayoffInputDto = {
     year: dayjs(startDate).year(),

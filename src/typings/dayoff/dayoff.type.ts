@@ -1,11 +1,13 @@
 import { Dayoff, DayoffCategory } from "@prisma/client";
 
-export type CreateDayoffPayload = {
+export type GoDayoffPayload = {
   id?: string;
   category: DayoffCategory;
   startDate: Date;
   endDate: Date;
   reason: string;
+  startDateAt: "PM" | "AM";
+  endDateAt: "AM" | "PM";
 };
 
 export type DayoffsReponse = {

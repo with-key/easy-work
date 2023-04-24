@@ -22,23 +22,26 @@ import { ButtonImpl } from "@components/core/button";
 import { useCalculateDayoffService } from "@apis/services/calculateDayoff.service";
 
 // type
-import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
+import type { GoDayoffPayload } from "@typings/dayoff/dayoff.type";
 import GoDayoffDialog from "@features/dayoff/user/alertContainer/GoDayoffDialog";
 
 const DayoffAddPage = () => {
   const router = useRouter();
-  const useDayoff = useGoDayoff();
 
-  const [dayoff, setDayoff] = useState<CreateDayoffPayload>({
+  const [dayoff, setDayoff] = useState<GoDayoffPayload>({
     category: "Full",
-    startDate: new Date(),
-    endDate: new Date(),
-    reason: "개인사유",
+    startDate: new Date(dayjs().format("YYYY-MM-DD")),
+    endDate: new Date(dayjs().format("YYYY-MM-DD")),
+    startDateAt: "AM",
+    endDateAt: "PM",
+    reason: "",
   });
 
   const { dayoffStatus, dayoffStatusIsLoading } = useCalculateDayoffService({
     startDate: dayjs(dayoff.startDate).format("YYYY-MM-DD"),
     endDate: dayjs(dayoff.endDate).format("YYYY-MM-DD"),
+    startDateAt: dayoff.startDateAt,
+    endDateAt: dayoff.endDateAt,
   });
 
   const chanegeDayoffCategoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -80,53 +83,72 @@ const DayoffAddPage = () => {
 
         <VStack css={{ gap: 30 }}>
           <VStack css={{ gap: 13 }}>
-            <Text shape="T15_700">휴가종류</Text>
-            <Select.Container
-              asChild
-              value={dayoff.category}
-              onChange={chanegeDayoffCategoryHandler}
-            >
-              <PrimarySelect>
-                <Select.Item value={DayoffCategory.Full}>연차</Select.Item>
-                <Select.Item value={DayoffCategory.AmHalf}>
-                  오전반차
-                </Select.Item>
-                <Select.Item value={DayoffCategory.PmHalf}>
-                  오후반차
-                </Select.Item>
-              </PrimarySelect>
-            </Select.Container>
-          </VStack>
-
-          <VStack css={{ gap: 13 }}>
             <Text shape="T15_700">시작일자</Text>
-            <Input.Date
-              asChild
-              name="startDate"
-              value={dayjs(dayoff.startDate).format("YYYY-MM-DD")}
-              onChange={changeInputHandler}
-            >
-              <BaseInput />
-            </Input.Date>
+            <HStack css={{ gap: 8 }}>
+              <Input.Date
+                asChild
+                name="startDate"
+                value={dayjs(dayoff.startDate).format("YYYY-MM-DD")}
+                onChange={changeInputHandler}
+              >
+                <BaseInput />
+              </Input.Date>
+              {/* 셀렉트 */}
+              <Select.Container
+                asChild
+                value={dayoff.startDateAt}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setDayoff((pre) => ({
+                    ...pre,
+                    startDateAt: value as "AM" | "PM",
+                  }));
+                }}
+              >
+                <PrimarySelect css={{ width: "40%" }}>
+                  <Select.Item value="AM">오전부터</Select.Item>
+                  <Select.Item value="PM">오후부터</Select.Item>
+                </PrimarySelect>
+              </Select.Container>
+            </HStack>
           </VStack>
 
           <VStack css={{ gap: 13 }}>
-            <div>종료일자</div>
-            <Input.Date
-              asChild
-              type="date"
-              name="endDate"
-              value={dayjs(dayoff.endDate).format("YYYY-MM-DD")}
-              onChange={chagneEndDateHandler}
-            >
-              <BaseInput />
-            </Input.Date>
+            <Text shape="T15_700">종료일자</Text>
+            <HStack css={{ gap: 8 }}>
+              <Input.Date
+                asChild
+                type="date"
+                name="endDate"
+                value={dayjs(dayoff.endDate).format("YYYY-MM-DD")}
+                onChange={chagneEndDateHandler}
+              >
+                <BaseInput />
+              </Input.Date>
+              <Select.Container
+                asChild
+                value={dayoff.endDateAt}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setDayoff((pre) => ({
+                    ...pre,
+                    endDateAt: value as "AM" | "PM",
+                  }));
+                }}
+              >
+                <PrimarySelect css={{ width: "40%" }}>
+                  <Select.Item value="AM">오전까지</Select.Item>
+                  <Select.Item value="PM">오후까지</Select.Item>
+                </PrimarySelect>
+              </Select.Container>
+            </HStack>
           </VStack>
 
           <VStack css={{ gap: 13 }}>
-            <div>사유</div>
+            <Text shape="T15_700">사유</Text>
             <Input.Text
               asChild
+              placeholder="사유를 입력하세요"
               name="reason"
               value={dayoff.reason}
               onChange={changeInputHandler}
@@ -147,7 +169,7 @@ const DayoffAddPage = () => {
           <HStack css={{ jc: "space-between", rmb: 6 }}>
             <Text shape="T14_600">차감연차</Text>
             <Text shape="T14_600" color="red500">
-              {dayoffStatusIsLoading ? "계산 중" : dayoffStatus?.count}
+              {dayoffStatusIsLoading ? "계산 중" : dayoffStatus?.days}
             </Text>
           </HStack>
           <Divider />

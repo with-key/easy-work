@@ -14,7 +14,7 @@ import { BaseInput } from "@components/template/input";
 import { PrimarySelect } from "@components/template/select";
 
 import { DayoffCategory } from "@prisma/client";
-import type { CreateDayoffPayload } from "@typings/dayoff/dayoff.type";
+import type { GoDayoffPayload } from "@typings/dayoff/dayoff.type";
 import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
 import { useAppRouter } from "@hooks/useAppRouter";
 import { StyledButtons } from "@components/template/button";
@@ -25,7 +25,7 @@ const DayoffEditPage = () => {
   console.log(router.query);
 
   const useDayoff = useGoDayoff();
-  const [dayoff, setDayoff] = useState<CreateDayoffPayload>({
+  const [dayoff, setDayoff] = useState<GoDayoffPayload>({
     category: "Full",
     startDate: new Date("2023-04-08"),
     endDate: new Date("2023-04-10"),
@@ -42,7 +42,7 @@ const DayoffEditPage = () => {
     setDayoff((pre) => ({ ...pre, [name]: value }));
   };
 
-  const submitDayoffHandler = (payload: CreateDayoffPayload) => {
+  const submitDayoffHandler = (payload: GoDayoffPayload) => {
     useDayoff.mutate({ ...payload, id: router.query.id?.toString() });
   };
 
