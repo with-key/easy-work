@@ -13,8 +13,6 @@ import { Space } from "@components/core/space";
 import { BaseInput } from "@components/template/input";
 import { PrimarySelect } from "@components/template/select";
 
-import { DayoffCategory } from "@prisma/client";
-import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
 import { StyledButtons } from "@components/template/button";
 import { ButtonImpl } from "@components/core/button";
 
@@ -29,7 +27,6 @@ const DayoffAddPage = () => {
   const router = useRouter();
 
   const [dayoff, setDayoff] = useState<GoDayoffPayload>({
-    category: "Full",
     startDate: new Date(dayjs().format("YYYY-MM-DD")),
     endDate: new Date(dayjs().format("YYYY-MM-DD")),
     startDateAt: "AM",
@@ -43,11 +40,6 @@ const DayoffAddPage = () => {
     startDateAt: dayoff.startDateAt,
     endDateAt: dayoff.endDateAt,
   });
-
-  const chanegeDayoffCategoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setDayoff((pre) => ({ ...pre, category: value as DayoffCategory }));
-  };
 
   const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;

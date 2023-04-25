@@ -10,7 +10,7 @@ import { HStack } from "@components/core/stack";
 import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 
 type Props = {
-  dayoff: ClientDayoffResponse;
+  dayoff: Partial<ClientDayoffResponse>;
 };
 
 const DayoffDetail = ({ dayoff }: Props) => {
@@ -18,7 +18,7 @@ const DayoffDetail = ({ dayoff }: Props) => {
     <>
       <Space css={{ rpx: 30, rpt: 5, rpb: 30 }}>
         <HStack css={{ ai: "center", gap: 8 }}>
-          <Text shape="T26_800">{dayoff.category}</Text>
+          <Text shape="T26_800">{dayoff.reason}</Text>
           <Tag status={"Approved"}>{dayoff.status}</Tag>
         </HStack>
         <Text shape="T15_400" color="gary06">
@@ -40,7 +40,7 @@ const DayoffDetail = ({ dayoff }: Props) => {
             잔여 연차
           </Text>
           <Text as="span" shape="T20_800">
-            = 8.5
+            = {dayoff.restDays}
           </Text>
           <Text as="span" shape="T15_700">
             일
@@ -51,10 +51,6 @@ const DayoffDetail = ({ dayoff }: Props) => {
       <Row>
         <Text shape="T14_600">휴가종류</Text>
         <Text shape="T14_400">일반휴가</Text>
-      </Row>
-      <Row>
-        <Text shape="T14_600">반차여부</Text>
-        <Text shape="T14_400">{dayoff.category}</Text>
       </Row>
       <Row>
         <Text shape="T14_600">시작일자</Text>

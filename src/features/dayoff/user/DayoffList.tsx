@@ -14,15 +14,13 @@ import { typoes } from "@styles/typos";
 
 const DayoffList = () => {
   const [year, setYear] = useState(dayjs().year());
-  const dayoffQuery = useGetDayoffs(year);
+  const { dayoffs, isLoading } = useGetDayoffs(year);
 
   const years = pipe(
     range(5),
     map((el) => dayjs().year() - el),
     toArray
   );
-
-  const dayoffs = dayoffQuery.dayoffs;
 
   return (
     <>
@@ -49,7 +47,7 @@ const DayoffList = () => {
           </StyledSelect>
         </Select.Container>
       </HStack>
-      {!dayoffQuery.dayoffs || dayoffQuery.isLoading ? (
+      {!dayoffs || isLoading ? (
         <>
           <Text>로딩 중</Text>
         </>

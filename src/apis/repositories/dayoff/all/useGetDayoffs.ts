@@ -23,6 +23,8 @@ export const useGetDayoffs = (year: number) => {
 
   const dayoffs = data?.result.map(convertClientDayoff);
 
+  console.log(dayoffs);
+
   return {
     dayoffs,
     ...rest,

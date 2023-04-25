@@ -4,10 +4,7 @@ import dayjs from "dayjs";
 import { useAppRouter } from "@hooks/useAppRouter";
 
 import { apis } from "@apis/axios/instance";
-import {
-  dayoffCategoryBuilder,
-  dayoffStatusBuilder,
-} from "@libs/client/dayoff";
+import { dayoffStatusBuilder } from "@libs/client/dayoff";
 
 import type { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 import type { Dayoff } from "@prisma/client";
@@ -32,7 +29,7 @@ export const useGetPendingStatusId = () => {
 
   const result = data?.result;
 
-  const pendingDayoff: ClientDayoffResponse = {
+  const pendingDayoff: Partial<ClientDayoffResponse> = {
     ...data,
     createAt: dayjs(result?.createAt).format("YYYY.MM.DD HH:mm:ss"),
     startDate: dayjs(result?.startDate).format("YYYY.MM.DD"),
@@ -40,7 +37,6 @@ export const useGetPendingStatusId = () => {
     days: result?.days,
     reason: result?.reason,
     status: dayoffStatusBuilder(result?.status),
-    category: dayoffCategoryBuilder(result?.category),
   };
 
   return { pendingDayoff, ...rest };

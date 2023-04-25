@@ -9,12 +9,12 @@ import { HStack } from "@components/core/stack";
 
 import CancelDayoffAlert from "@features/dayoff/user/alertContainer/DeleteDayoffDialog";
 import { StyledButtons } from "@components/template/button";
-import { useGetDayoffService } from "@apis/services/getDayoff.service";
 import DayoffDetail from "@features/dayoff/common/DayoffDetail";
+import { useGetDayoff } from "@apis/repositories/dayoff/useGetDayoff";
 
 const DayoffDetailPage = () => {
   const router = useAppRouter();
-  const { dayoff, isLoading } = useGetDayoffService();
+  const { dayoff, isLoading } = useGetDayoff();
 
   if (!dayoff || isLoading) return null;
 

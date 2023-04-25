@@ -1,5 +1,4 @@
 import { apis } from "@apis/axios/instance";
-import { dayoffCategoryBuilder } from "@libs/client/dayoff";
 import { DayoffCategory } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -37,7 +36,6 @@ export const useGetPendingStatus = () => {
 
   const pendings = data?.result.map((pending) => ({
     id: pending.id,
-    category: dayoffCategoryBuilder(pending.category),
     createAt: dayjs(pending.createAt).format("YYYY-MM-DD HH:mm:ss"),
     name: pending.user.name,
   }));

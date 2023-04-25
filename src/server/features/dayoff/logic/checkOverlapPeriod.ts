@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 dayjs.extend(isSameOrBefore);
 
-import * as dayoffRepository from "../repositories/dayoffs.repository";
+import dayoffRepository from "../repositories/dayoffs.repository";
 
 type CheckOverlapPeriod = {
   startDate: Date;
@@ -18,8 +18,10 @@ export const checkOverlapPeriod = async ({
   endDate,
 }: CheckOverlapPeriod) => {
   const thisYear = dayjs(startDate).year();
+  const { getUserAllDayoff } = dayoffRepository();
+
   // 해당 유저의 당해년도 휴가 전원 조회
-  const dayoffs = await dayoffRepository.getUserAllDayoff(userId, thisYear);
+  const dayoffs = await getUserAllDayoff(userId, thisYear);
 
   if (isEmpty(dayoffs)) return false;
   for (const dayoff of dayoffs) {

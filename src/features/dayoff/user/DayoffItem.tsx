@@ -10,14 +10,16 @@ import { useRouter } from "next/router";
 import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 import Vertical from "@components/template/vertical";
 
-interface Props extends PropsWithChildren {
-  dayoff: ClientDayoffResponse;
-}
+type Props = {
+  dayoff: Partial<ClientDayoffResponse>;
+};
 
-const DayoffItem = ({ dayoff }: Props) => {
+const DayoffItem = ({ dayoff }: PropsWithChildren<Props>) => {
   const router = useRouter();
-  const { category, status, startDate, endDate, days, createAt } = dayoff;
+  const { status, startDate, endDate, days, createAt, reason } = dayoff;
   const createDate = dayjs(createAt).format("M.DD");
+
+  console.log(reason);
 
   return (
     <HStack
@@ -37,7 +39,7 @@ const DayoffItem = ({ dayoff }: Props) => {
         }}
       >
         <HStack css={{ gap: 4, ai: "center" }}>
-          <Text shape="T15_600">{category}</Text>
+          <Text shape="T15_600">{reason}</Text>
           <Tag status={status}>{dayoff.status}</Tag>
         </HStack>
         <HStack css={{ gap: 8, ai: "center" }}>

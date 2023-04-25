@@ -16,23 +16,11 @@ export function dayoffStatusBuilder(value?: Status) {
   }
 }
 
-export function dayoffCategoryBuilder(value?: DayoffCategory) {
-  switch (value) {
-    case "AmHalf":
-      return "오전 반차";
-    case "PmHalf":
-      return "오후 반차";
-    case "Full":
-      return "연차";
-    default:
-      break;
-  }
-}
-
-export function convertClientDayoff(dayoff: Dayoff): ClientDayoffResponse {
+export function convertClientDayoff(
+  dayoff: Dayoff
+): Partial<ClientDayoffResponse> {
   return {
     ...dayoff,
-    category: dayoffCategoryBuilder(dayoff.category),
     status: dayoffStatusBuilder(dayoff.status),
     createAt: dayjs(dayoff.createAt).format("YYYY.MM.DD HH:mm:ss"),
     startDate: dayjs(dayoff.startDate).format("YY.MM.DD"),

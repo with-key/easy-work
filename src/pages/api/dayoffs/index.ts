@@ -45,12 +45,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       select: {
         id: true,
-        category: true,
         startDate: true,
         endDate: true,
         createAt: true,
         status: true,
         days: true,
+        reason: true,
       },
     });
 

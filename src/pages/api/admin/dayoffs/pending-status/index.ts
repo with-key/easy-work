@@ -16,7 +16,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
       select: {
         id: true,
-        category: true,
         createAt: true,
         user: {
           select: {

@@ -12,11 +12,13 @@ export type CalculateDayoffPaylod = {
 
 export const useCalculateDayoff = (payload: CalculateDayoffPaylod) => {
   const queryFn = async (): Promise<
-    CoreQueryData<{ count: number; hasDays: number }>
+    CoreQueryData<{ days: number; hasDays: number }>
   > => {
     const { data } = await apis.get("/dayoffs/calculate-dayoff", {
       params: payload,
     });
+
+    console.log(data);
 
     return data;
   };

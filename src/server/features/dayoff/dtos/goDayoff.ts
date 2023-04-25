@@ -1,7 +1,6 @@
-import { Dayoff, DayoffCategory } from "@prisma/client";
+import { Dayoff } from "@prisma/client";
 
 export type GoDayoffBody = {
-  category: DayoffCategory;
   startDate: Date;
   endDate: Date;
   reason: string;
@@ -11,7 +10,6 @@ export type GoDayoffBody = {
 
 export type GoDayoffInputDto = Pick<
   Dayoff,
-  | "category"
   | "reason"
   | "startDate"
   | "endDate"
@@ -19,4 +17,5 @@ export type GoDayoffInputDto = Pick<
   | "type"
   | "userId"
   | "year"
+  | "restDays"
 >;
