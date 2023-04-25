@@ -39,12 +39,6 @@ enum Status {
   Rejected
 }
 
-enum DayoffCategory {
-  Full
-  AmHalf
-  PmHalf
-}
-
 enum DayoffType {
   Published
   Used
@@ -53,19 +47,19 @@ enum DayoffType {
 }
 
 model Dayoff {
-  id        Int            @id @default(autoincrement())
-  createAt  DateTime       @default(now())
-  updateAt  DateTime       @updatedAt
+  id        Int        @id @default(autoincrement())
+  createAt  DateTime   @default(now())
+  updateAt  DateTime   @updatedAt
   days      Float // 차/증감 개수
   startDate DateTime // 시작 일자
   endDate   DateTime // 종료 일자
   year      Int // 연도 
   reason    String // 사유
-  type      DayoffType     @default(Used) // 생성 이유
-  category  DayoffCategory @default(Full) // 휴가 종류
-  status    Status         @default(Pending) // 상태
+  type      DayoffType @default(Used) // 생성 이유
+  status    Status     @default(Pending) // 상태
   userId    Int // 작성자
-  user      User           @relation(fields: [userId], references: [id])
+  user      User       @relation(fields: [userId], references: [id])
+  restDays  Float      @default(0) // 잔여 휴가 개수
 
   @@index([userId])
 }
@@ -117,10 +111,6 @@ enum SpecialDayoffTicketStatus {
   Used
 }
 
-// 특별휴가 티켓 
-// 유저는 티켓을 가지고 있어야 특별휴가를 사용할 수 있다.
-// Pending : 사용되지 않은 티켓
-// Used : 사용된 티켓
 model SpecialDayoffTicket {
   id       Int                       @id @default(autoincrement())
   createAt DateTime                  @default(now())
@@ -135,17 +125,3 @@ model SpecialDayoffTicket {
 
   @@index([userId])
 }
-
-// 관리자는 사용자에게 티켓을 부여한다.
-// 사용자는 티켓이 있어야 휴가를 신청할 수 있다.
-// 관리자는 티켓에 사용가능한 휴가의 종류, 사용기한, 대상자, 휴가 신청 가능 days 를 설정한다.
-// 사용자는 본인이 가지고 있는 티켓을 조회할 수 있다.
-// 사용자가 티켓을 사용할 수 있는 조건
-// - 티켓의 상태가 Pending 이어야 한다.
-// - 티켓의 사용기한이 지나지 않아야 한다.
-// - 티켓의 사용가능한 휴가의 종류가 휴가 신청 종류와 일치해야 한다.
-// - 티켓의 사용가능한 휴가의 days 가 휴가 신청 days 보다 크거나 같아야 한다.
-// - 티켓의 대상자가 휴가 신청자와 일치해야 한다.
-
-// - ticket의 검사는 special dayoff를 사용할 때 수행한다.
-// - 같은 연도에 같은 카테고리의 티켓은 하나만 소유할 수 있다.
