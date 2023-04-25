@@ -16,10 +16,43 @@ type Props = {
 
 const DayoffItem = ({ dayoff }: PropsWithChildren<Props>) => {
   const router = useRouter();
-  const { status, startDate, endDate, days, createAt, reason } = dayoff;
+  const { status, startDate, endDate, days, createAt, reason, type } = dayoff;
   const createDate = dayjs(createAt).format("M.DD");
 
-  console.log(reason);
+  if (type === "Published") {
+    return (
+      <HStack
+        css={{ gap: 15 }}
+        onClick={() => {
+          return router.push(`dayoff/${dayoff.id}`);
+        }}
+      >
+        <Space css={{ rpy: 12 }}>
+          <Text shape="T14_400">{createDate}</Text>
+        </Space>
+        <Space
+          css={{
+            borderBottom: "$gary04 1px solid",
+            rpy: 12,
+            width: "100%",
+          }}
+        >
+          <HStack css={{ gap: 4, ai: "center" }}>
+            <Text shape="T15_600" color="blueTxt02">
+              {reason}
+            </Text>
+          </HStack>
+          <HStack css={{ gap: 8, ai: "center" }}>
+            <Text shape="T13_400">{startDate} 발행됨</Text>
+            <Vertical />
+            <Text shape="T13_500" color="blueTxt02">
+              {days}
+            </Text>
+          </HStack>
+        </Space>
+      </HStack>
+    );
+  }
 
   return (
     <HStack

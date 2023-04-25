@@ -1,4 +1,4 @@
-import { Dayoff } from "@prisma/client";
+import { Dayoff, DayoffType } from "@prisma/client";
 
 export type GoDayoffPayload = {
   id?: string;
@@ -24,4 +24,5 @@ export type ClientDayoffResponse = {
   createAt: string;
   startDate: string;
   endDate: string;
+  type: DayoffType;
 };

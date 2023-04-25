@@ -13,7 +13,6 @@ import * as Select from "@components/core/select";
 import { BaseInput } from "@components/template/input";
 import { PrimarySelect } from "@components/template/select";
 
-import { DayoffCategory } from "@prisma/client";
 import type { GoDayoffPayload } from "@typings/dayoff/dayoff.type";
 import { useGoDayoff } from "@apis/repositories/dayoff/useGoDayoff";
 import { useAppRouter } from "@hooks/useAppRouter";
@@ -22,20 +21,15 @@ import { ButtonImpl } from "@components/core/button";
 
 const DayoffEditPage = () => {
   const router = useAppRouter();
-  console.log(router.query);
 
   const useDayoff = useGoDayoff();
   const [dayoff, setDayoff] = useState<GoDayoffPayload>({
-    category: "Full",
+    startDateAt: "AM",
+    endDateAt: "PM",
     startDate: new Date("2023-04-08"),
     endDate: new Date("2023-04-10"),
     reason: "개인사유",
   });
-
-  const chanegeDayoffCategoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setDayoff((pre) => ({ ...pre, category: value as DayoffCategory }));
-  };
 
   const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -65,7 +59,7 @@ const DayoffEditPage = () => {
         </Space>
 
         <VStack css={{ gap: 30 }}>
-          <VStack css={{ gap: 13 }}>
+          {/* <VStack css={{ gap: 13 }}>
             <Text shape="T15_700">휴가종류</Text>
             <Select.Container
               asChild
@@ -82,7 +76,7 @@ const DayoffEditPage = () => {
                 </Select.Item>
               </PrimarySelect>
             </Select.Container>
-          </VStack>
+          </VStack> */}
 
           <VStack css={{ gap: 13 }}>
             <Text shape="T15_700">시작일자</Text>

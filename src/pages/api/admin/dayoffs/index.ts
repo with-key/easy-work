@@ -4,6 +4,7 @@ import { withApiSession } from "@libs/server/withSession";
 import { giveDayoff } from "@server/admin/dayoff/giveDayoff";
 
 const dayoffController = async (req: NextApiRequest, res: NextApiResponse) => {
+  // 관리자의 연차 발행
   if (req.method === "POST") {
     return await giveDayoff(req, res);
   }

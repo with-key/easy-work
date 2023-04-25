@@ -1,5 +1,4 @@
 import { apis } from "@apis/axios/instance";
-import { DayoffCategory } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
@@ -15,7 +14,6 @@ type PendingStatus = {
   message: string;
   result: {
     id: number;
-    category: DayoffCategory;
     createAt: string;
     user: {
       name: string;

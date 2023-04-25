@@ -51,6 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         status: true,
         days: true,
         reason: true,
+        type: true,
       },
     });
 

@@ -1,4 +1,4 @@
-import { Dayoff, DayoffCategory, Status } from "@prisma/client";
+import { Dayoff, Status } from "@prisma/client";
 import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 import dayjs from "dayjs";
 

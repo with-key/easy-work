@@ -3,14 +3,14 @@ import { styled } from "@styles/stitches.config";
 import { ClientDayoffResponse } from "@typings/dayoff/dayoff.type";
 
 type Props = {
-  status: ClientDayoffResponse["status"];
+  status?: ClientDayoffResponse["status"];
 } & PropsWithChildren;
 
 const Tag = ({ status, children }: Props) => {
   return <StyledTag theme={themeBuilder(status)}>{children}</StyledTag>;
 };
 
-function themeBuilder(status: ClientDayoffResponse["status"]) {
+function themeBuilder(status?: ClientDayoffResponse["status"]) {
   return status === "승인"
     ? "positive"
     : status === "대기"
