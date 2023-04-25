@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler from "@libs/server/withHandler";
 import { withApiSession } from "@libs/server/withSession";
+import { giveDayoff } from "@server/admin/dayoff/giveDayoff";
 
 const dayoffController = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    return res.status(201).json({});
+    return await giveDayoff(req, res);
   }
 
   if (req.method === "GET") {
@@ -28,7 +29,7 @@ const dayoffController = async (req: NextApiRequest, res: NextApiResponse) => {
 export default withApiSession(
   withHandler({
     method: ["POST", "GET", "DELETE", "PUT"],
-    isPrivate: true,
+    isPrivate: false,
     roles: ["All"],
     handler: dayoffController,
   })
